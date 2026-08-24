@@ -298,7 +298,6 @@ public class RegisterServlet extends HttpServlet {
             "}" +
 
             "</style>" +
-
             "</head>" +
 
             "<body>" +
