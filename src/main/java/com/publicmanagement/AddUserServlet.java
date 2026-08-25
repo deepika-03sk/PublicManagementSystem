@@ -16,10 +16,24 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/addUser")
 public class AddUserServlet extends HttpServlet {
 
-    private static final String DB_URL =
-            "jdbc:mysql://localhost:3306/public_management_system";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "deepika@1234";
+	private static final String DB_HOST =
+	        System.getenv("MYSQLHOST");
+
+	private static final String DB_PORT =
+	        System.getenv("MYSQLPORT");
+
+	private static final String DB_NAME =
+	        System.getenv("MYSQLDATABASE");
+
+	private static final String DB_USER =
+	        System.getenv("MYSQLUSER");
+
+	private static final String DB_PASSWORD =
+	        System.getenv("MYSQLPASSWORD");
+
+	private static final String DB_URL =
+	        "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME
+	        + "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
     protected void doPost(HttpServletRequest request,
                           HttpServletResponse response)

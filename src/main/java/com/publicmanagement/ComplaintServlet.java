@@ -30,15 +30,24 @@ import jakarta.servlet.http.Part;
 public class ComplaintServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    private static final String DB_HOST =
+            System.getenv("MYSQLHOST");
 
-    private static final String DB_URL =
-            "jdbc:mysql://localhost:3306/public_management_system";
+    private static final String DB_PORT =
+            System.getenv("MYSQLPORT");
+
+    private static final String DB_NAME =
+            System.getenv("MYSQLDATABASE");
 
     private static final String DB_USER =
-            "root";
+            System.getenv("MYSQLUSER");
 
     private static final String DB_PASSWORD =
-            "deepika@1234";
+            System.getenv("MYSQLPASSWORD");
+
+    private static final String DB_URL =
+            "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME;
+    
 
 
     protected void doPost(
