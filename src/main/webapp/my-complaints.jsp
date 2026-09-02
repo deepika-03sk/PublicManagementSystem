@@ -84,13 +84,10 @@
     int resolvedComplaints = 0;
     int rejectedComplaints = 0;
 
-    String dbUrl =
-        "jdbc:mysql://localhost:3306/public_management_system";
-
-    String dbUsername = "root";
-    String dbPassword = "deepika@1234";
-
-
+    
+    String url = System.getenv("MYSQL_URL");
+    String username = System.getenv("MYSQLUSER");
+    String password = System.getenv("MYSQLPASSWORD");
     try {
 
         Class.forName(

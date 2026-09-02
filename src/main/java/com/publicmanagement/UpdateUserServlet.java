@@ -66,8 +66,7 @@ public class UpdateUserServlet extends HttpServlet {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD);
+            Connection con = DBConnection.getConnection();
 
             PreparedStatement ps = con.prepareStatement(sql);
 

@@ -65,12 +65,7 @@ public class RegisterServlet extends HttpServlet {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Connect to Railway MySQL
-            con = DriverManager.getConnection(
-                    DB_URL,
-                    DB_USER,
-                    DB_PASSWORD
-            );
-
+            con = DBConnection.getConnection();
             // Check whether email already exists
             String checkSql =
                     "SELECT id FROM users WHERE email = ?";

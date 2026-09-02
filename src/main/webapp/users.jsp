@@ -128,14 +128,10 @@
     /*
      * DATABASE CONNECTION
      */
-
-    String url =
-        "jdbc:mysql://localhost:3306/public_management_system";
-
-    String username = "root";
-
-    String password = "deepika@1234";
-
+     String url = System.getenv("MYSQL_URL");
+     String username = System.getenv("MYSQLUSER");
+     String password = System.getenv("MYSQLPASSWORD");
+   
 
     try {
 

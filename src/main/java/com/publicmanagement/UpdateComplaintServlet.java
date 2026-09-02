@@ -137,10 +137,7 @@ public class UpdateComplaintServlet extends HttpServlet {
 
 
             Connection con =
-                    DriverManager.getConnection(
-                            DB_URL,
-                            DB_USER,
-                            DB_PASSWORD);
+            		DBConnection.getConnection()   ;
 
 
             // =================================
