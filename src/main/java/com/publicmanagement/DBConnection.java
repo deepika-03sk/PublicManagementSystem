@@ -17,11 +17,11 @@ public class DBConnection {
 
         if (host == null || port == null || database == null
                 || user == null || password == null) {
+
             throw new Exception("Railway MySQL variables are missing.");
         }
 
-        String url =
-                "jdbc:mysql://" + host + ":" + port + "/" + database
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + database
                 + "?useSSL=false"
                 + "&allowPublicKeyRetrieval=true"
                 + "&serverTimezone=UTC"

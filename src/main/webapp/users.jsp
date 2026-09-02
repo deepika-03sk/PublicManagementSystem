@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.publicmanagement.DBConnection" %>
 
 <%
     // Protect the page: user must be logged in
@@ -16,16 +17,10 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
-
     <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
@@ -65,9 +60,6 @@
 
 <div class="container">
 
-
-    <!-- PAGE TITLE -->
-
     <h1 class="page-title">
         👥 User Management
     </h1>
@@ -75,9 +67,6 @@
     <p>
         Manage all registered users in the system.
     </p>
-
-
-    <!-- BACK TO DASHBOARD -->
 
     <br>
 
@@ -99,21 +88,14 @@
                 <tr>
 
                     <th>ID</th>
-
                     <th>First Name</th>
-
                     <th>Last Name</th>
-
                     <th>Email</th>
-
                     <th>Phone</th>
-
                     <th>Role</th>
 
                     <% if ("ADMIN".equals(currentRole)) { %>
-
                         <th>Action</th>
-
                     <% } %>
 
                 </tr>
@@ -124,48 +106,33 @@
             <tbody>
 
 <%
-
-    /*
-     * DATABASE CONNECTION
-     */
-     Connection con = DriverManager.getConnection(
-    		    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
-    		    System.getenv("MYSQLUSER"),
-    		    System.getenv("MYSQLPASSWORD")
-    		);
-   
+    Connection con = null;
+    Statement st = null;
+    ResultSet rs = null;
 
     try {
 
-        // Load MySQL JDBC Driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
-
-
-        // Connect to database
-       Connection con = DBConnection.getConnection();
+        // Use the central database connection
+        con = DBConnection.getConnection();
 
         // Create SQL statement
-        Statement st =
-            con.createStatement();
+        st = con.createStatement();
 
-
-        // Get users in ID order
-        ResultSet rs =
-            st.executeQuery(
-                "SELECT id, first_name, last_name, email, phone, role " +
-                "FROM users ORDER BY id ASC"
-            );
+        // Get users
+        rs = st.executeQuery(
+            "SELECT id, first_name, last_name, email, phone, role " +
+            "FROM users ORDER BY id ASC"
+        );
 
         int displayNumber = 1;
-        // Display users
-        while (rs.next()) {
 
+        while (rs.next()) {
 %>
 
                 <tr>
 
                     <td>
-                         <%= displayNumber %>
+                        <%= displayNumber %>
                     </td>
 
                     <td>
@@ -189,8 +156,6 @@
                     </td>
 
 
-                    <!-- ADMIN ACTIONS -->
-
                     <% if ("ADMIN".equals(currentRole)) { %>
 
                     <td>
@@ -198,9 +163,7 @@
                         <a
                             class="action-edit"
                             href="edit-user.jsp?id=<%= rs.getInt("id") %>">
-
                             ✏️ Edit
-
                         </a>
 
                         &nbsp;
@@ -209,9 +172,7 @@
                             class="action-delete"
                             href="deleteUser?id=<%= rs.getInt("id") %>"
                             onclick="return confirm('Are you sure you want to delete this user?');">
-
                             🗑️ Delete
-
                         </a>
 
                     </td>
@@ -221,22 +182,11 @@
                 </tr>
 
 <%
-                displayNumber++;
+            displayNumber++;
         }
 
-        // Close database resources
-        rs.close();
-
-        st.close();
-
-        con.close();
-
-
     } catch (Exception e) {
-
 %>
-
-                <!-- DATABASE ERROR -->
 
                 <tr>
 
@@ -252,9 +202,22 @@
                 </tr>
 
 <%
+    } finally {
 
+        // Close database resources safely
+
+        try {
+            if (rs != null) rs.close();
+        } catch (Exception ignored) {}
+
+        try {
+            if (st != null) st.close();
+        } catch (Exception ignored) {}
+
+        try {
+            if (con != null) con.close();
+        } catch (Exception ignored) {}
     }
-
 %>
 
             </tbody>
@@ -282,9 +245,7 @@
 
     <% } %>
 
-
 </div>
-
 
 </body>
 
