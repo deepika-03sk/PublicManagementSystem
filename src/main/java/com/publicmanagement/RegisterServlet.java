@@ -22,19 +22,9 @@ public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     // Railway MySQL environment variables
-    private static final String DB_HOST = System.getenv("MYSQLHOST");
-    private static final String DB_PORT = System.getenv("MYSQLPORT");
-    private static final String DB_NAME = System.getenv("MYSQLDATABASE");
+    private static final String DB_URL = System.getenv("MYSQL_URL");
     private static final String DB_USER = System.getenv("MYSQLUSER");
     private static final String DB_PASSWORD = System.getenv("MYSQLPASSWORD");
-
-    private static final String DB_URL =
-            "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + DB_NAME
-            + "?useSSL=false"
-            + "&allowPublicKeyRetrieval=true"
-            + "&serverTimezone=UTC"
-            + "&connectTimeout=10000"
-            + "&socketTimeout=10000";
 
     @Override
     protected void doPost(
