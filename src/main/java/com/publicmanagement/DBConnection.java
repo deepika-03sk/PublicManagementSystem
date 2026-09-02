@@ -9,16 +9,29 @@ public class DBConnection {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        String mysqlUrl = System.getenv("MYSQL_URL");
+        String host = System.getenv("MYSQLHOST");
+        String port = System.getenv("MYSQLPORT");
+        String database = System.getenv("MYSQLDATABASE");
+        String user = System.getenv("MYSQLUSER");
+        String password = System.getenv("MYSQLPASSWORD");
 
-        if (mysqlUrl == null || mysqlUrl.isEmpty()) {
-            throw new Exception("MYSQL_URL is not set in Railway.");
+        if (host == null || port == null || database == null
+                || user == null || password == null) {
+            throw new Exception("Railway MySQL variables are missing.");
         }
 
-        // Railway gives mysql://
-        // JDBC requires jdbc:mysql://
-        String jdbcUrl = mysqlUrl.replaceFirst("^mysql://", "jdbc:mysql://");
+        String url =
+                "jdbc:mysql://" + host + ":" + port + "/" + database
+                + "?useSSL=false"
+                + "&allowPublicKeyRetrieval=true"
+                + "&serverTimezone=UTC"
+                + "&connectTimeout=10000"
+                + "&socketTimeout=10000";
 
-        return DriverManager.getConnection(jdbcUrl);
+        return DriverManager.getConnection(
+                url,
+                user,
+                password
+        );
     }
 }
