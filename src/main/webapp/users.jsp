@@ -128,9 +128,11 @@
     /*
      * DATABASE CONNECTION
      */
-     String url = System.getenv("MYSQL_URL");
-     String username = System.getenv("MYSQLUSER");
-     String password = System.getenv("MYSQLPASSWORD");
+     Connection con = DriverManager.getConnection(
+    		    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
+    		    System.getenv("MYSQLUSER"),
+    		    System.getenv("MYSQLPASSWORD")
+    		);
    
 
     try {
@@ -140,13 +142,7 @@
 
 
         // Connect to database
-        Connection con =
-            DriverManager.getConnection(
-                url,
-                username,
-                password
-            );
-
+       Connection con = DBConnection.getConnection();
 
         // Create SQL statement
         Statement st =

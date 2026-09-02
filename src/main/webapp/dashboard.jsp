@@ -35,13 +35,11 @@
     int totalCitizens = 0;
 
 
-    String url =
-        "jdbc:mysql://localhost:3306/public_management_system";
-
-    String username = "root";
-
-    String password = "deepika@1234";
-
+    Connection con = DriverManager.getConnection(
+    	    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
+    	    System.getenv("MYSQLUSER"),
+    	    System.getenv("MYSQLPASSWORD")
+    	);
 
     // ==========================================
     // GET STATISTICS FROM DATABASE
@@ -51,14 +49,7 @@
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        Connection con =
-            DriverManager.getConnection(
-                url,
-                username,
-                password
-            );
-
-
+        Connection con = DBConnection.getConnection();
         // Total users
 
         PreparedStatement psTotal =
@@ -390,23 +381,16 @@
 
     if ("ADMIN".equals(session.getAttribute("role"))) {
 
-        String dbUrl =
-            "jdbc:mysql://localhost:3306/public_management_system";
-
-        String dbUser = "root";
-        String dbPassword = "deepika@1234";
-
+    	Connection con = DriverManager.getConnection(
+    		    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
+    		    System.getenv("MYSQLUSER"),
+    		    System.getenv("MYSQLPASSWORD")
+    		);
         try {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection con =
-                DriverManager.getConnection(
-                    dbUrl,
-                    dbUser,
-                    dbPassword
-                );
-
+            Connection con = DBConnection.getConnection();
             Statement st = con.createStatement();
 
             ResultSet rs =

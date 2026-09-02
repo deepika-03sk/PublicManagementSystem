@@ -681,16 +681,11 @@
     // DATABASE CONNECTION
     // ==========================================
 
-    String url =
-            "jdbc:mysql://localhost:3306/public_management_system";
-
-    String username =
-            "root";
-
-    String password =
-            "deepika@1234";
-
-
+    Connection con = DriverManager.getConnection(
+    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
+    System.getenv("MYSQLUSER"),
+    System.getenv("MYSQLPASSWORD")
+);
     Connection con = null;
 
     PreparedStatement ps = null;
@@ -704,14 +699,8 @@
                 "com.mysql.cj.jdbc.Driver");
 
 
-        con =
-            DriverManager.getConnection(
-                url,
-                username,
-                password
-            );
-
-
+        
+        Connection con = DBConnection.getConnection();
         // ======================================
         // SECURITY:
         // ONLY THIS USER'S COMPLAINT
