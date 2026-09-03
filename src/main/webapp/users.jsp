@@ -184,6 +184,9 @@
 <%
             displayNumber++;
         }
+        rs.close();
+        st.close();
+        con.close();
 
     } catch (Exception e) {
 %>
