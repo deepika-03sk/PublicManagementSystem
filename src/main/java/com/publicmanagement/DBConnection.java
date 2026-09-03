@@ -18,21 +18,53 @@ public class DBConnection {
         if (host == null || port == null || database == null
                 || user == null || password == null) {
 
-            throw new Exception("Railway MySQL variables are missing.");
+            throw new Exception(
+                "Railway MySQL variables are missing."
+            );
         }
 
         String url =
-                "jdbc:mysql://" + host + ":" + port + "/" + database
-                + "?useSSL=false"
-                + "&allowPublicKeyRetrieval=true"
-                + "&serverTimezone=UTC"
-                + "&connectTimeout=10000"
-                + "&socketTimeout=10000";
+            "jdbc:mysql://" + host + ":" + port + "/" + database
+            + "?useSSL=false"
+            + "&allowPublicKeyRetrieval=true"
+            + "&serverTimezone=UTC"
+            + "&connectTimeout=10000"
+            + "&socketTimeout=10000";
 
-        return DriverManager.getConnection(
-                url,
-                user,
-                password
-        );
+        System.out.println("========== DATABASE TEST ==========");
+        System.out.println("MYSQLHOST = " + host);
+        System.out.println("MYSQLPORT = " + port);
+        System.out.println("MYSQLDATABASE = " + database);
+        System.out.println("MYSQLUSER = " + user);
+        System.out.println("Attempting database connection...");
+        System.out.println("===================================");
+
+        try {
+
+            Connection con =
+                DriverManager.getConnection(
+                    url,
+                    user,
+                    password
+                );
+
+            System.out.println("========== DATABASE TEST ==========");
+            System.out.println("DATABASE CONNECTION: SUCCESS");
+            System.out.println("===================================");
+
+            return con;
+
+        } catch (Exception e) {
+
+            System.out.println("========== DATABASE TEST ==========");
+            System.out.println("DATABASE CONNECTION: FAILED");
+            System.out.println("ERROR TYPE = "
+                + e.getClass().getName());
+            System.out.println("ERROR = "
+                + e.getMessage());
+            System.out.println("===================================");
+
+            throw e;
+        }
     }
 }
