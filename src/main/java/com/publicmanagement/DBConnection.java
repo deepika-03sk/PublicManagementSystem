@@ -9,20 +9,27 @@ public class DBConnection {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        String mysqlUrl = System.getenv("MYSQL_URL");
+        String database = System.getenv("MYSQLDATABASE");
+        String user = System.getenv("MYSQLUSER");
+        String password = System.getenv("MYSQLPASSWORD");
 
-        if (mysqlUrl == null || mysqlUrl.isBlank()) {
-            throw new Exception("MYSQL_URL is missing from Railway.");
+        if (database == null || user == null || password == null) {
+            throw new Exception("Railway MySQL variables are missing.");
         }
 
-        // Railway provides mysql://...
-        // JDBC requires jdbc:mysql://...
-        String jdbcUrl = mysqlUrl.startsWith("jdbc:")
-                ? mysqlUrl
-                : "jdbc:" + mysqlUrl;
+        // Railway MySQL TCP Proxy
+        String host = "thomas.proxy.rlwy.net";
+        String port = "24465";
 
-        System.out.println("Connecting using Railway MYSQL_URL...");
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + database
+                + "?useSSL=false"
+                + "&allowPublicKeyRetrieval=true"
+                + "&serverTimezone=UTC"
+                + "&connectTimeout=15000"
+                + "&socketTimeout=15000";
 
-        return DriverManager.getConnection(jdbcUrl);
+        System.out.println("Connecting to Railway MySQL TCP Proxy...");
+
+        return DriverManager.getConnection(url, user, password);
     }
 }
