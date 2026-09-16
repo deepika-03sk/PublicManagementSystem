@@ -113,7 +113,9 @@
     try {
 
         // Use the central database connection
-        con = DBConnection.getConnection();
+        out.println("<p style='color:blue;font-weight:bold;'>DATABASE TEST STARTED</p>");
+con = DBConnection.getConnection();
+out.println("<p style='color:green;font-weight:bold;'>DATABASE CONNECTION SUCCESS</p>");
 
         // Create SQL statement
         st = con.createStatement();
@@ -189,22 +191,25 @@
         con.close();
 
     } catch (Exception e) {
-%>
+    	%>
+    	    <tr>
+    	        <td colspan="<%= "ADMIN".equals(currentRole) ? "7" : "6" %>"
+    	            style="color:#dc2626; font-weight:bold; white-space:pre-wrap;">
 
-                <tr>
+    	            ⚠️ Database Error:<br><br>
 
-                    <td
-                        colspan="<%= "ADMIN".equals(currentRole) ? "7" : "6" %>"
-                        style="color: #dc2626; font-weight: bold;">
+    	            <%= e.getClass().getName() %><br>
+    	            <%= e.getMessage() %><br><br>
 
-                        ⚠️ Database Error:
-                        <%= e.getMessage() %>
+    	            <% if (e.getCause() != null) { %>
+    	                CAUSE:<br>
+    	                <%= e.getCause().getClass().getName() %><br>
+    	                <%= e.getCause().getMessage() %>
+    	            <% } %>
 
-                    </td>
-
-                </tr>
-
-<%
+    	        </td>
+    	    </tr>
+    	<%
     } finally {
 
         // Close database resources safely
