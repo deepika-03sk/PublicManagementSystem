@@ -21,7 +21,8 @@ public class DBConnection {
         }
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database
-                + "?sslMode=REQUIRED"
+        		+ "?sslMode=REQUIRED"
+        		+ "&trustServerCertificate=true"
                 + "&serverTimezone=UTC"
                 + "&connectTimeout=15000"
                 + "&socketTimeout=15000";
