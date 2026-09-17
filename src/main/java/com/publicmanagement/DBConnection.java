@@ -9,22 +9,24 @@ public class DBConnection {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
 
-        String url = System.getenv("MYSQL_PUBLIC_URL");
+        String host = System.getenv("MYSQLHOST");
+        String port = System.getenv("MYSQLPORT");
+        String database = System.getenv("MYSQLDATABASE");
+        String user = System.getenv("MYSQLUSER");
+        String password = System.getenv("MYSQLPASSWORD");
 
-        if (url == null || url.isBlank()) {
-            throw new Exception("MYSQL_PUBLIC_URL is missing from Railway.");
+        if (host == null || port == null || database == null
+                || user == null || password == null) {
+            throw new Exception("Railway MySQL variables are missing.");
         }
 
-        if (url.startsWith("mysql://")) {
-            url = "jdbc:" + url;
-        }
+        String url = "jdbc:mysql://" + host + ":" + port + "/" + database
+                + "?useSSL=false"
+                + "&allowPublicKeyRetrieval=true"
+                + "&serverTimezone=UTC"
+                + "&connectTimeout=15000"
+                + "&socketTimeout=15000";
 
-        if (!url.startsWith("jdbc:")) {
-            throw new Exception("Invalid MYSQL_PUBLIC_URL format.");
-        }
-
-        System.out.println("Connecting using Railway MYSQL_PUBLIC_URL...");
-
-        return DriverManager.getConnection(url);
+        return DriverManager.getConnection(url, user, password);
     }
 }
