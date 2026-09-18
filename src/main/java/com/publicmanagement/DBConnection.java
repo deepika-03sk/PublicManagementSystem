@@ -21,10 +21,11 @@ public class DBConnection {
         }
 
         String url = "jdbc:mysql://" + host + ":" + port + "/" + database
-        	
+                + "?useSSL=false"
+                + "&allowPublicKeyRetrieval=true"
                 + "&serverTimezone=UTC"
-                + "&connectTimeout=15000"
-                + "&socketTimeout=15000";
+                + "&connectTimeout=10000"
+                + "&socketTimeout=10000";
 
         return DriverManager.getConnection(url, user, password);
     }
