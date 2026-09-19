@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ page import="java.sql.*" %>
+
 <%@ page import="com.publicmanagement.DBConnection" %>
 
 <%
@@ -21,6 +22,8 @@
 
 
 
+
+
     // ==========================================
 
     // ADMIN PROTECTION
@@ -38,6 +41,8 @@
         return;
 
     }
+
+
 
 
 
@@ -63,19 +68,21 @@
 
 
 
-\<!DOCTYPE html>
+
+
+<!**DOCTYPE** html>
 
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+    <**meta** charset="UTF-8">
 
-    <meta name="viewport"
+    <**meta** name="viewport"
 
           content="width=device-width, initial-scale=1.0">
 
-    <title>Update Complaint\</title>
+    <title>Update Complaint</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -83,109 +90,109 @@
 
         .update-wrapper {
 
-            max-width: 750px;
+            max-width: *750px*;
 
-            margin: 40px auto;
+            margin: *40px auto*;
 
         }
 
         .update-card {
 
-            background: white;
+            background: *white*;
 
-            padding: 40px;
+            padding: *40px*;
 
-            border-radius: 22px;
+            border-radius: *22px*;
 
             box-shadow:
 
-                0 12px 35px
+                *0 12px 35px*
 
-                rgba(15, 23, 42, 0.10);
+                *rgba(15, 23, 42, 0.10)*;
 
         }
 
         .update-header {
 
-            text-align: center;
+            text-align: *center*;
 
-            margin-bottom: 30px;
+            margin-bottom: *30px*;
 
         }
 
         .update-icon {
 
-            font-size: 55px;
+            font-size: *55px*;
 
-            margin-bottom: 10px;
+            margin-bottom: *10px*;
 
         }
 
         .update-header h1 {
 
-            background: none;
+            background: *none*;
 
-            padding: 0;
+            padding: *0*;
 
-            color: #0f172a;
+            color: *#0f172a*;
 
-            margin-bottom: 8px;
+            margin-bottom: *8px*;
 
         }
 
         .update-header p {
 
-            color: #64748b;
+            color: *#64748b*;
 
         }
 
         .complaint-info {
 
-            background: #f8fafc;
+            background: *#f8fafc*;
 
-            padding: 20px;
+            padding: *20px*;
 
-            border-radius: 12px;
+            border-radius: *12px*;
 
-            margin-bottom: 25px;
+            margin-bottom: *25px*;
 
         }
 
         .info-row {
 
-            margin-bottom: 10px;
+            margin-bottom: *10px*;
 
         }
 
-        .info-row\:last-child {
+        .info-row:last-child {
 
-            margin-bottom: 0;
+            margin-bottom: *0*;
 
         }
 
         .info-label {
 
-            font-weight: 700;
+            font-weight: *700*;
 
-            color: #334155;
+            color: *#334155*;
 
         }
 
         .field {
 
-            margin-bottom: 20px;
+            margin-bottom: *20px*;
 
         }
 
         .field label {
 
-            display: block;
+            display: *block*;
 
-            font-weight: 600;
+            font-weight: *600*;
 
-            color: #334155;
+            color: *#334155*;
 
-            margin-bottom: 8px;
+            margin-bottom: *8px*;
 
         }
 
@@ -193,91 +200,93 @@
 
         .field textarea {
 
-            width: 100%;
+            width: *100%*;
 
         }
 
         .field textarea {
 
-            min-height: 130px;
+            min-height: *130px*;
 
-            padding: 12px 14px;
+            padding: *12px 14px*;
 
-            border: 1px solid #cbd5e1;
+            border: *1px solid #cbd5e1*;
 
-            border-radius: 9px;
+            border-radius: *9px*;
 
-            font-family: inherit;
+            font-family: *inherit*;
 
-            font-size: 15px;
+            font-size: *15px*;
 
-            resize: vertical;
+            resize: *vertical*;
 
-            outline: none;
+            outline: *none*;
 
         }
 
-        .field textarea\:focus {
+        .field textarea:focus {
 
-            border-color: #2563eb;
+            border-color: *#2563eb*;
 
             box-shadow:
 
-                0 0 0 3px
+                *0 0 0 3px*
 
-                rgba(37, 99, 235, 0.12);
+                *rgba(37, 99, 235, 0.12)*;
 
         }
 
         .form-actions {
 
-            display: flex;
+            display: *flex*;
 
-            gap: 12px;
+            gap: *12px*;
 
-            margin-top: 25px;
+            margin-top: *25px*;
 
         }
 
         .form-actions button {
 
-            flex: 1;
+            flex: *1*;
 
         }
 
         .cancel-button {
 
-            display: inline-flex;
+            display: *inline-flex*;
 
-            align-items: center;
+            align-items: *center*;
 
-            justify-content: center;
+            justify-content: *center*;
 
-            padding: 12px 22px;
+            padding: *12px 22px*;
 
-            border-radius: 9px;
+            border-radius: *9px*;
 
-            background: #e2e8f0;
+            background: *#e2e8f0*;
 
-            color: #334155;
+            color: *#334155*;
 
-            text-decoration: none;
+            text-decoration: *none*;
 
-            font-weight: 600;
-
-        }
-
-        .cancel-button\:hover {
-
-            background: #cbd5e1;
-
-            color: #0f172a;
+            font-weight: *600*;
 
         }
 
-    \</style>
+        .cancel-button:hover {
 
-\</head>
+            background: *#cbd5e1*;
+
+            color: *#0f172a*;
+
+        }
+
+    </style>
+
+</head>
+
+
 
 
 
@@ -285,11 +294,13 @@
 
 
 
+
+
 <!-- ==========================================
 
      NAVIGATION
 
-     \========================================== -->
+     ========================================== -->
 
 <nav class="navbar">
 
@@ -297,7 +308,7 @@
 
         🏛️ Public Management System
 
-    \</div>
+    </div>
 
     <div class="nav-links">
 
@@ -305,23 +316,25 @@
 
             🏠 Dashboard
 
-        \</a>
+        </a>
 
         <a href="admin-complaints.jsp">
 
             📋 Complaints
 
-        \</a>
+        </a>
 
         <a href="logout">
 
             🚪 Logout
 
-        \</a>
+        </a>
 
-    \</div>
+    </div>
 
-\</nav>
+</nav>
+
+
 
 
 
@@ -329,7 +342,7 @@
 
      MAIN CONTENT
 
-     \========================================== -->
+     ========================================== -->
 
 <div class="container">
 
@@ -339,14 +352,20 @@
 
 
 
+
+
 <%
 
 Connection con = null;
+
     PreparedStatement ps = null;
+
     ResultSet rs = null;
 
     try {
+
         Class.forName("com.mysql.cj.jdbc.Driver");
+
         con = DBConnection.getConnection();
 
         String sql =
@@ -363,9 +382,13 @@ Connection con = null;
 
 
 
+
+
         ps =
 
             con.prepareStatement(sql);
+
+
 
 
 
@@ -379,15 +402,21 @@ Connection con = null;
 
 
 
+
+
         rs =
 
             ps.executeQuery();
 
 
 
+
+
         if (rs.next()) {
 
 %>
+
+
 
 
 
@@ -399,13 +428,13 @@ Connection con = null;
 
                     🔄
 
-                \</div>
+                </div>
 
                 <h1>
 
                     Update Complaint
 
-                \</h1>
+                </h1>
 
                 <p>
 
@@ -413,9 +442,11 @@ Connection con = null;
 
                     update its current status.
 
-                \</p>
+                </p>
 
-            \</div>
+            </div>
+
+
 
 
 
@@ -429,11 +460,13 @@ Connection con = null;
 
                         📋 Complaint ID:
 
-                    \</span>
+                    </span>
 
                     CMP-<%= rs.getInt("id") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -443,13 +476,15 @@ Connection con = null;
 
                         👤 Citizen:
 
-                    \</span>
+                    </span>
 
                     <%= rs.getString("first_name") %>
 
                     <%= rs.getString("last_name") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -459,11 +494,13 @@ Connection con = null;
 
                         📧 Email:
 
-                    \</span>
+                    </span>
 
                     <%= rs.getString("email") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -473,11 +510,13 @@ Connection con = null;
 
                         📝 Complaint:
 
-                    \</span>
+                    </span>
 
                     <%= rs.getString("title") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -487,11 +526,13 @@ Connection con = null;
 
                         📂 Category:
 
-                    \</span>
+                    </span>
 
                     <%= rs.getString("category") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -501,11 +542,13 @@ Connection con = null;
 
                         📍 Location:
 
-                    \</span>
+                    </span>
 
                     <%= rs.getString("location") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -515,11 +558,13 @@ Connection con = null;
 
                         ⚡ Priority:
 
-                    \</span>
+                    </span>
 
                     <%= rs.getString("priority") %>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -529,15 +574,17 @@ Connection con = null;
 
                         📄 Description:
 
-                    \</span>
+                    </span>
 
                     <br><br>
 
                     <%= rs.getString("description") %>
 
-                \</div>
+                </div>
 
-            \</div>
+            </div>
+
+
 
 
 
@@ -551,13 +598,17 @@ Connection con = null;
 
 
 
+
+
                 <input
 
                     type="hidden"
 
                     name="id"
 
-                    value="<%= rs.getInt("id") %>">
+                    value=*"*<%= rs.getInt("id") %>*"*>
+
+
 
 
 
@@ -569,7 +620,9 @@ Connection con = null;
 
                         🔄 Complaint Status
 
-                    \</label>
+                    </label>
+
+
 
 
 
@@ -580,6 +633,8 @@ Connection con = null;
                         name="status"
 
                         required>
+
+
 
 
 
@@ -595,7 +650,9 @@ Connection con = null;
 
                             🟡 Pending
 
-                        \</option>
+                        </option>
+
+
 
 
 
@@ -611,7 +668,9 @@ Connection con = null;
 
                             🔵 In Progress
 
-                        \</option>
+                        </option>
+
+
 
 
 
@@ -627,7 +686,9 @@ Connection con = null;
 
                             🟢 Resolved
 
-                        \</option>
+                        </option>
+
+
 
 
 
@@ -643,13 +704,17 @@ Connection con = null;
 
                             🔴 Rejected
 
-                        \</option>
+                        </option>
 
 
 
-                    \</select>
 
-                \</div>
+
+                    </select>
+
+                </div>
+
+
 
 
 
@@ -661,7 +726,9 @@ Connection con = null;
 
                         💬 Admin Response
 
-                    \</label>
+                    </label>
+
+
 
 
 
@@ -673,7 +740,9 @@ Connection con = null;
 
                         placeholder="Enter a response for the citizen..."><%= rs.getString("admin_response") == null ? "" : rs.getString("admin_response") %>\</textarea>
 
-                \</div>
+                </div>
+
+
 
 
 
@@ -683,13 +752,17 @@ Connection con = null;
 
 
 
+
+
                     <button
 
                         type="submit">
 
                         💾 Update Complaint
 
-                    \</button>
+                    </button>
+
+
 
 
 
@@ -701,15 +774,21 @@ Connection con = null;
 
                         ↩️ Cancel
 
-                    \</a>
+                    </a>
 
 
 
-                \</div>
+
+
+                </div>
 
 
 
-            \</form>
+
+
+            </form>
+
+
 
 
 
@@ -721,19 +800,21 @@ Connection con = null;
 
 
 
+
+
             <div class="update-header">
 
                 <div class="update-icon">
 
                     ⚠️
 
-                \</div>
+                </div>
 
                 <h1>
 
                     Complaint Not Found
 
-                \</h1>
+                </h1>
 
                 <p>
 
@@ -741,7 +822,7 @@ Connection con = null;
 
                     exist in the database.
 
-                \</p>
+                </p>
 
                 <br>
 
@@ -749,15 +830,19 @@ Connection con = null;
 
                     ← Back to Complaints
 
-                \</a>
+                </a>
 
-            \</div>
+            </div>
+
+
 
 
 
 <%
 
         }
+
+
 
 
 
@@ -769,9 +854,13 @@ Connection con = null;
 
 
 
+
+
     } catch (Exception e) {
 
 %>
+
+
 
 
 
@@ -781,21 +870,23 @@ Connection con = null;
 
                 ⚠️
 
-            \</div>
+            </div>
 
             <h1>
 
                 Database Error
 
-            \</h1>
+            </h1>
 
             <p>
 
                 <%= e.getMessage() %>
 
-            \</p>
+            </p>
 
-        \</div>
+        </div>
+
+
 
 
 
@@ -807,14 +898,18 @@ Connection con = null;
 
 
 
-        \</div>
-
-    \</div>
-
-\</div>
 
 
+        </div>
 
-\</body>
+    </div>
 
-\</html>
+</div>
+
+
+
+
+
+</body>
+
+</html>
