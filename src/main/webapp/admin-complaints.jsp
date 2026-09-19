@@ -1,7 +1,8 @@
-
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="java.sql.*" %>
 <%@ page import="com.publicmanagement.DBConnection" %>
+
 <%
 
     // ==========================================
@@ -80,23 +81,23 @@
 
 
 
-\<!**DOCTYPE** html>
+<!DOCTYPE html>
 
-<**html** lang=*"en"*>
+<html lang="en">
 
-<**head**>
+<head>
 
-    <**meta** charset=*"UTF-8"*>
+    <meta charset="UTF-8">
 
-    <**meta** name=*"viewport"*
+    <meta name="viewport"
 
-          content=*"width=device-width, initial-scale=1.0"*>
+          content="width=device-width, initial-scale=1.0">
 
-    <**title**>Complaint Management\</**title**>
+    <title>Complaint Management</title>
 
-    <**link** rel=*"stylesheet"* href=*"style.css"*>
+    <link rel="stylesheet" href="style.css">
 
-    <**style**>
+    <style>
 
         .complaint-header {
 
@@ -124,11 +125,11 @@
 
 
 
-        /\* ================================
+        /* ================================
 
            FILTER BOX
 
-           \================================ \*/
+           \================================ */
 
         .filter-box {
 
@@ -272,11 +273,11 @@
 
 
 
-        /\* ================================
+        /* ================================
 
            STATUS
 
-           \================================ \*/
+           \================================ */
 
         .status-badge {
 
@@ -336,11 +337,11 @@
 
 
 
-        /\* ================================
+        /* ================================
 
            PRIORITY
 
-           \================================ \*/
+           \================================ */
 
         .priority-high {
 
@@ -372,11 +373,11 @@
 
 
 
-        /\* ================================
+        /* ================================
 
            ACTION BUTTON
 
-           \================================ \*/
+           \================================ */
 
         .action-edit {
 
@@ -428,11 +429,11 @@
 
 
 
-        /\* ================================
+        /* ================================
 
            MOBILE
 
-           \================================ \*/
+           \================================ */
 
         @media (max-width: 900px) {
 
@@ -456,185 +457,185 @@
 
         }
 
-    \</**style**>
+    </style>
 
-\</**head**>
-
-
-
-<**body**>
+</head>
 
 
 
-\<!-- ==========================================
+<body>
+
+
+
+<!-- ==========================================
 
      NAVIGATION
 
      \========================================== -->
 
-<**nav** class=*"navbar"*>
+<nav class="navbar">
 
-    <**div** class=*"logo"*>
+    <div class="logo">
 
         🏛️ Public Management System
 
-    \</**div**>
+    </div>
 
 
 
-    <**div** class=*"nav-links"*>
+    <div class="nav-links">
 
-        <**a** href=*"dashboard.jsp"*>
+        <a href="dashboard.jsp">
 
             🏠 Dashboard
 
-        \</**a**>
+        </a>
 
-        <**a** href=*"users.jsp"*>
+        <a href="users.jsp">
 
             👥 Users
 
-        \</**a**>
+        </a>
 
-        <**a** href=*"admin-complaints.jsp"*>
+        <a href="admin-complaints.jsp">
 
             📋 Complaints
 
-        \</**a**>
+        </a>
 
-        <**a** href=*"logout"*>
+        <a href="logout">
 
             🚪 Logout
 
-        \</**a**>
+        </a>
 
-    \</**div**>
+    </div>
 
-\</**nav**>
+</nav>
 
 
 
-\<!-- ==========================================
+<!-- ==========================================
 
      MAIN
 
      \========================================== -->
 
-<**div** class=*"container"*>
+<div class="container">
 
 
 
-    <**div** class=*"complaint-header"*>
+    <div class="complaint-header">
 
-        <**h1** class=*"page-title"*>
+        <h1 class="page-title">
 
             📋 Complaint Management
 
-        \</**h1**>
+        </h1>
 
-        <**p**>
+        <p>
 
             Review, search and manage
 
             citizen complaints.
 
-        \</**p**>
+        </p>
 
-        <**br**>
+        <br>
 
-        <**a** class=*"back-link"*
+        <a class="back-link"
 
-           href=*"dashboard.jsp"*>
+           href="dashboard.jsp">
 
             ← Back to Dashboard
 
-        \</**a**>
+        </a>
 
-    \</**div**>
-
-
+    </div>
 
 
 
-    \<!-- ======================================
+
+
+    <!-- ======================================
 
          SEARCH AND FILTER
 
          \====================================== -->
 
-    <**div** class=*"filter-box"*>
+    <div class="filter-box">
 
 
 
-        <**div** class=*"filter-title"*>
+        <div class="filter-title">
 
             🔍 Search & Filter Complaints
 
-        \</**div**>
+        </div>
 
 
 
-        <**form**
+        <form
 
-            method=*"get"*
+            method="get"
 
-            action=*"admin-complaints.jsp"*
+            action="admin-complaints.jsp"
 
-            class=*"filter-form"*>
+            class="filter-form">
 
 
 
-            \<!-- SEARCH -->
+            <!-- SEARCH -->
 
-            <**div** class=*"filter-field"*>
+            <div class="filter-field">
 
-                <**label** for=*"search"*>
+                <label for="search">
 
                     🔍 Search
 
-                \</**label**>
+                </label>
 
-                <**input**
+                <input
 
-                    type=*"text"*
+                    type="text"
 
-                    id=*"search"*
+                    id="search"
 
-                    name=*"search"*
+                    name="search"
 
-                    value=*"*<%= search %>*"*
+                    value="*<%= search %>*"
 
-                    placeholder=*"Citizen, email, title or location"*>
+                    placeholder="Citizen, email, title or location">
 
-            \</**div**>
+            </div>
 
 
 
-            \<!-- STATUS -->
+            <!-- STATUS -->
 
-            <**div** class=*"filter-field"*>
+            <div class="filter-field">
 
-                <**label** for=*"status"*>
+                <label for="status">
 
                     🔄 Status
 
-                \</**label**>
+                </label>
 
-                <**select**
+                <select
 
-                    id=*"status"*
+                    id="status"
 
-                    name=*"status"*>
+                    name="status">
 
-                    <**option** value=*""*>
+                    <option value="">
 
                         All Status
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"PENDING"*
+                        value="PENDING"
 
                         <%= "PENDING".equals(statusFilter)
 
@@ -642,11 +643,11 @@
 
                         🟡 Pending
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"IN_PROGRESS"*
+                        value="IN_PROGRESS"
 
                         <%= "IN_PROGRESS".equals(statusFilter)
 
@@ -654,11 +655,11 @@
 
                         🔵 In Progress
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"RESOLVED"*
+                        value="RESOLVED"
 
                         <%= "RESOLVED".equals(statusFilter)
 
@@ -666,11 +667,11 @@
 
                         🟢 Resolved
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"REJECTED"*
+                        value="REJECTED"
 
                         <%= "REJECTED".equals(statusFilter)
 
@@ -678,39 +679,39 @@
 
                         🔴 Rejected
 
-                    \</**option**>
+                    </option>
 
-                \</**select**>
+                </select>
 
-            \</**div**>
+            </div>
 
 
 
-            \<!-- CATEGORY -->
+            <!-- CATEGORY -->
 
-            <**div** class=*"filter-field"*>
+            <div class="filter-field">
 
-                <**label** for=*"category"*>
+                <label for="category">
 
                     📂 Category
 
-                \</**label**>
+                </label>
 
-                <**select**
+                <select
 
-                    id=*"category"*
+                    id="category"
 
-                    name=*"category"*>
+                    name="category">
 
-                    <**option** value=*""*>
+                    <option value="">
 
                         All Categories
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"ROADS"*
+                        value="ROADS"
 
                         <%= "ROADS".equals(categoryFilter)
 
@@ -718,11 +719,11 @@
 
                         🛣️ Roads
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"ELECTRICITY"*
+                        value="ELECTRICITY"
 
                         <%= "ELECTRICITY".equals(categoryFilter)
 
@@ -730,11 +731,11 @@
 
                         💡 Electricity
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"WATER"*
+                        value="WATER"
 
                         <%= "WATER".equals(categoryFilter)
 
@@ -742,11 +743,11 @@
 
                         💧 Water
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"SANITATION"*
+                        value="SANITATION"
 
                         <%= "SANITATION".equals(categoryFilter)
 
@@ -754,11 +755,11 @@
 
                         🗑️ Sanitation
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"STREET_LIGHT"*
+                        value="STREET_LIGHT"
 
                         <%= "STREET_LIGHT".equals(categoryFilter)
 
@@ -766,11 +767,11 @@
 
                         🔦 Street Lights
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"PUBLIC_SAFETY"*
+                        value="PUBLIC_SAFETY"
 
                         <%= "PUBLIC_SAFETY".equals(categoryFilter)
 
@@ -778,11 +779,11 @@
 
                         🛡️ Public Safety
 
-                    \</**option**>
+                    </option>
 
-                    <**option**
+                    <option
 
-                        value=*"OTHER"*
+                        value="OTHER"
 
                         <%= "OTHER".equals(categoryFilter)
 
@@ -790,101 +791,101 @@
 
                         📌 Other
 
-                    \</**option**>
+                    </option>
 
-                \</**select**>
+                </select>
 
-            \</**div**>
+            </div>
 
 
 
-            \<!-- SEARCH BUTTON -->
+            <!-- SEARCH BUTTON -->
 
-            <**div**>
+            <div>
 
-                <**button**
+                <button
 
-                    type=*"submit"*
+                    type="submit"
 
-                    class=*"filter-button"*>
+                    class="filter-button">
 
                     🔎 Search
 
-                \</**button**>
+                </button>
 
-            \</**div**>
-
-
-
-        \</**form**>
+            </div>
 
 
 
-        <**a**
+        </form>
 
-            href=*"admin-complaints.jsp"*
 
-            class=*"clear-button"*>
+
+        <a
+
+            href="admin-complaints.jsp"
+
+            class="clear-button">
 
             ✖️ Clear Filters
 
-        \</**a**>
+        </a>
 
 
 
-    \</**div**>
+    </div>
 
 
 
 
 
-    \<!-- ======================================
+    <!-- ======================================
 
          COMPLAINT TABLE
 
          \====================================== -->
 
-    <**div** class=*"table-container"*>
+    <div class="table-container">
 
-        <**table**>
-
-
-
-            <**thead**>
-
-                <**tr**>
-
-                    <**th**>No.\</**th**>
-
-                    <**th**>Citizen\</**th**>
-
-                    <**th**>Complaint\</**th**>
-
-                    <**th**>Category\</**th**>
-
-                    <**th**>Location\</**th**>
-
-                    <**th**>Priority\</**th**>
-
-                    <**th**>Status\</**th**>
-
-                    <**th**>Date\</**th**>
-
-                    <**th**>Action\</**th**>
-
-                \</**tr**>
-
-            \</**thead**>
+        <table>
 
 
 
-            <**tbody**>
+            <thead>
+
+                <tr>
+
+                    <th>No.</th>
+
+                    <th>Citizen</th>
+
+                    <th>Complaint</th>
+
+                    <th>Category</th>
+
+                    <th>Location</th>
+
+                    <th>Priority</th>
+
+                    <th>Status</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+
+            <tbody>
 
 
 
 <%
 
-try {
+    try {
 
         Class.forName(
 
@@ -896,15 +897,15 @@ try {
 
         Connection con = DBConnection.getConnection();
 
-        /\*
+        /*
 
-         \* =====================================
+         * =====================================
 
-         \* DYNAMIC QUERY
+         * DYNAMIC QUERY
 
-         \* =====================================
+         * =====================================
 
-         \*/
+         */
 
         StringBuilder sql =
 
@@ -928,11 +929,11 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* Search condition
+         * Search condition
 
-         \*/
+         */
 
         if (!search.trim().isEmpty()) {
 
@@ -958,11 +959,11 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* Status filter
+         * Status filter
 
-         \*/
+         */
 
         if (!statusFilter.trim().isEmpty()) {
 
@@ -976,11 +977,11 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* Category filter
+         * Category filter
 
-         \*/
+         */
 
         if (!categoryFilter.trim().isEmpty()) {
 
@@ -1016,11 +1017,11 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* Search parameters
+         * Search parameters
 
-         \*/
+         */
 
         if (!search.trim().isEmpty()) {
 
@@ -1074,11 +1075,11 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* Status parameter
+         * Status parameter
 
-         \*/
+         */
 
         if (!statusFilter.trim().isEmpty()) {
 
@@ -1094,11 +1095,11 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* Category parameter
+         * Category parameter
 
-         \*/
+         */
 
         if (!categoryFilter.trim().isEmpty()) {
 
@@ -1142,27 +1143,27 @@ try {
 
 
 
-                <**tr**>
+                <tr>
 
 
 
-                    \<!-- NUMBER -->
+                    <!-- NUMBER -->
 
-                    <**td**>
+                    <td>
 
-                        <**strong**>
+                        <strong>
 
                             <%= displayNumber %>
 
-                        \</**strong**>
+                        </strong>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- CITIZEN -->
+                    <!-- CITIZEN -->
 
-                    <**td**>
+                    <td>
 
                         👤
 
@@ -1170,63 +1171,63 @@ try {
 
                         <%= rs.getString("last_name") %>
 
-                        <**br**>
+                        <br>
 
-                        <**small**>
+                        <small>
 
                             📧
 
                             <%= rs.getString("email") %>
 
-                        \</**small**>
+                        </small>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- COMPLAINT -->
+                    <!-- COMPLAINT -->
 
-                    <**td**>
+                    <td>
 
                         📝
 
-                        <**strong**>
+                        <strong>
 
                             <%= rs.getString("title") %>
 
-                        \</**strong**>
+                        </strong>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- CATEGORY -->
+                    <!-- CATEGORY -->
 
-                    <**td**>
+                    <td>
 
                         📂
 
                         <%= rs.getString("category") %>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- LOCATION -->
+                    <!-- LOCATION -->
 
-                    <**td**>
+                    <td>
 
                         📍
 
                         <%= rs.getString("location") %>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- PRIORITY -->
+                    <!-- PRIORITY -->
 
-                    <**td**>
+                    <td>
 
 <%
 
@@ -1234,11 +1235,11 @@ try {
 
 %>
 
-                        <**span** class=*"priority-high"*>
+                        <span class="priority-high">
 
                             🔴 HIGH
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1246,11 +1247,11 @@ try {
 
 %>
 
-                        <**span** class=*"priority-medium"*>
+                        <span class="priority-medium">
 
                             🟡 MEDIUM
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1258,11 +1259,11 @@ try {
 
 %>
 
-                        <**span** class=*"priority-low"*>
+                        <span class="priority-low">
 
                             🟢 LOW
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1270,13 +1271,13 @@ try {
 
 %>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- STATUS -->
+                    <!-- STATUS -->
 
-                    <**td**>
+                    <td>
 
 <%
 
@@ -1284,11 +1285,11 @@ try {
 
 %>
 
-                        <**span** class=*"status-badge pending"*>
+                        <span class="status-badge pending">
 
                             🟡 PENDING
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1296,11 +1297,11 @@ try {
 
 %>
 
-                        <**span** class=*"status-badge progress"*>
+                        <span class="status-badge progress">
 
                             🔵 IN PROGRESS
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1308,11 +1309,11 @@ try {
 
 %>
 
-                        <**span** class=*"status-badge resolved"*>
+                        <span class="status-badge resolved">
 
                             🟢 RESOLVED
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1320,11 +1321,11 @@ try {
 
 %>
 
-                        <**span** class=*"status-badge rejected"*>
+                        <span class="status-badge rejected">
 
                             🔴 REJECTED
 
-                        \</**span**>
+                        </span>
 
 <%
 
@@ -1340,39 +1341,39 @@ try {
 
 %>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- DATE -->
+                    <!-- DATE -->
 
-                    <**td**>
+                    <td>
 
                         <%= rs.getTimestamp("created_at") %>
 
-                    \</**td**>
+                    </td>
 
 
 
-                    \<!-- ACTION -->
+                    <!-- ACTION -->
 
-                    <**td**>
+                    <td>
 
-                            <**a**
+                            <a
 
-                                    class=*"action-edit"*
+                                    class="action-edit"
 
-                                    href=*"complaint-details.jsp?id=*<%= rs.getInt("id") %>*"*>
+                                    href="complaint-details.jsp?id=<%= rs.getInt("id") %>">
 
                                     👀 View
 
-                            \</**a**>
+                            </a>
 
-                    \</**td**>
+                    </td>
 
 
 
-                \</**tr**>
+                </tr>
 
 
 
@@ -1384,15 +1385,15 @@ try {
 
 
 
-        /\*
+        /*
 
-         \* =====================================
+         * =====================================
 
-         \* NO RESULTS
+         * NO RESULTS
 
-         \* =====================================
+         * =====================================
 
-         \*/
+         */
 
         if (!found) {
 
@@ -1400,37 +1401,37 @@ try {
 
 
 
-                <**tr**>
+                <tr>
 
-                    <**td** colspan=*"9"*>
+                    <td colspan="9">
 
-                        <**div** class=*"no-data"*>
+                        <div class="no-data">
 
-                            <**div** class=*"no-data-icon"*>
+                            <div class="no-data-icon">
 
                                 🔍
 
-                            \</**div**>
+                            </div>
 
-                            <**h2**>
+                            <h2>
 
                                 No Complaints Found
 
-                            \</**h2**>
+                            </h2>
 
-                            <**p**>
+                            <p>
 
                                 Try changing your
 
                                 search or filters.
 
-                            \</**p**>
+                            </p>
 
-                        \</**div**>
+                        </div>
 
-                    \</**td**>
+                    </td>
 
-                \</**tr**>
+                </tr>
 
 
 
@@ -1454,11 +1455,11 @@ try {
 
 
 
-                <**tr**>
+                <tr>
 
-                    <**td**
+                    <td
 
-                        colspan=*"9"*
+                        colspan="9"
 
                         style="color:*red*;
 
@@ -1468,9 +1469,9 @@ try {
 
                         <%= e.getMessage() %>
 
-                    \</**td**>
+                    </td>
 
-                \</**tr**>
+                </tr>
 
 
 
@@ -1482,18 +1483,18 @@ try {
 
 
 
-            \</**tbody**>
+            </tbody>
 
-        \</**table**>
+        </table>
 
-    \</**div**>
-
-
-
-\</**div**>
+    </div>
 
 
 
-\</**body**>
+</div>
 
-\</**html**>
+
+
+</body>
+
+</html>
