@@ -1,8 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8"* pageEncoding="UTF-8"* %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page import="java.sql."* %>
+<%@ page import="java.sql.*" %>
 
-<%@ page import="com.publicmanagement.DBConnection"* %>
+<%@ page import="com.publicmanagement.DBConnection" %>
 
 <%
 
@@ -90,43 +90,42 @@
 
 <!DOCTYPE html>
 
-<html lang="en"*>
+<html lang="en">
 
 <head>
 
-    <meta charset="UTF-8"*>
+    <meta charset="UTF-8">
 
-    <meta name="viewport"*
-
-          content="width=device-width, initial-scale=1.0"*>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Complaint Management</title>
 
-    <link rel="stylesheet"* href="style.css"*>
+    <link rel="stylesheet"* href="style.css">
 
     <style>
 
         .complaint-header {
 
-            margin-bottom: \25px**;
+            margin-bottom: 25px;
 
         }
 
         .complaint-header h1 {
 
-            background: \none**;
+            background: none;
 
-            padding: \0**;
+            padding: 0;
 
-            color: \#0f172a**;
+            color: #0f172a;
 
-            margin-bottom: \8px**;
+            margin-bottom: 8px;
 
         }
 
         .complaint-header p {
 
-            color: \#64748b**;
+            color: #64748b;
 
         }
 
@@ -138,23 +137,23 @@
 
            FILTER BOX
 
-           \================================ */
+           ================================ */
 
         .filter-box {
 
-            background: \white**;
+            background: white;
 
-            padding: \25px**;
+            padding: 25px;
 
-            border-radius: \18px**;
+            border-radius: 18px;
 
-            margin-bottom: \25px**;
+            margin-bottom: 25px;
 
             box-shadow:
 
-                \0 8px 25px**
+                0 8px 25px
 
-                \rgba(15, 23, 42, 0.08)**;
+                rgba(15, 23, 42, 0.08);
 
         }
 
@@ -164,13 +163,13 @@
 
         .filter-title {
 
-            font-size: \18px**;
+            font-size: 18px;
 
-            font-weight: \700**;
+            font-weight: 700;
 
-            color: \#0f172a**;
+            color: #0f172a;
 
-            margin-bottom: \18px**;
+            margin-bottom: 18px;
 
         }
 
@@ -180,15 +179,15 @@
 
         .filter-form {
 
-            display: \grid**;
+            display: grid;
 
             grid-template-columns:
 
-                \2fr 1fr 1fr auto**;
+                2fr 1fr 1fr auto;
 
-            gap: \12px**;
+            gap: 12px;
 
-            align-items: \end**;
+            align-items: end;
 
         }
 
@@ -198,15 +197,15 @@
 
         .filter-field label {
 
-            display: \block**;
+            display: block;
 
-            font-size: \13px**;
+            font-size: 13px;
 
-            font-weight: \600**;
+            font-weight: 600;
 
-            color: \#475569**;
+            color: #475569;
 
-            margin-bottom: \7px**;
+            margin-bottom: 7px;
 
         }
 
@@ -218,9 +217,9 @@
 
         .filter-field select {
 
-            width: \100%**;
+            width: 100%;
 
-            box-sizing: \border-box**;
+            box-sizing: border-box;
 
         }
 
@@ -230,19 +229,19 @@
 
         .filter-button {
 
-            padding: \12px 20px**;
+            padding: 12px 20px;
 
-            border: \none**;
+            border: none;
 
-            border-radius: \9px**;
+            border-radius: 9px;
 
-            background: \#2563eb**;
+            background: #2563eb;
 
-            color: \white**;
+            color: white;
 
-            font-weight: \600**;
+            font-weight: 600;
 
-            cursor: \pointer**;
+            cursor: pointer;
 
         }
 
@@ -252,7 +251,7 @@
 
         .filter-button:hover {
 
-            background: \#1d4ed8**;
+            background: #1d4ed8;
 
         }
 
@@ -262,27 +261,27 @@
 
         .clear-button {
 
-            display: \inline-flex**;
+            display: inline-flex;
 
-            align-items: \center**;
+            align-items: center;
 
-            justify-content: \center**;
+            justify-content: center;
 
-            margin-top: \12px**;
+            margin-top: 12px;
 
-            padding: \9px 15px**;
+            padding: 9px 15px;
 
-            border-radius: \8px**;
+            border-radius: 8px;
 
-            background: \#e2e8f0**;
+            background: #e2e8f0;
 
-            color: \#334155**;
+            color: #334155;
 
-            text-decoration: \none**;
+            text-decoration: none;
 
-            font-size: \14px**;
+            font-size: 14px;
 
-            font-weight: \600**;
+            font-weight: 600;
 
         }
 
@@ -292,7 +291,7 @@
 
         .clear-button:hover {
 
-            background: \#cbd5e1**;
+            background: #cbd5e1;
 
         }
 
@@ -304,21 +303,21 @@
 
            STATUS
 
-           \================================ */
+           ================================ */
 
         .status-badge {
 
-            display: \inline-block**;
+            display: inline-block;
 
-            padding: \6px 11px**;
+            padding: 6px 11px;
 
-            border-radius: \20px**;
+            border-radius: 20px;
 
-            font-size: \12px**;
+            font-size: 12px;
 
-            font-weight: \700**;
+            font-weight: 700;
 
-            white-space: \nowrap**;
+            white-space: nowrap;
 
         }
 
@@ -328,9 +327,9 @@
 
         .pending {
 
-            background: \#fef3c7**;
+            background: #fef3c7;
 
-            color: \#92400e**;
+            color: #92400e;
 
         }
 
@@ -340,9 +339,9 @@
 
         .progress {
 
-            background: \#dbeafe**;
+            background: #dbeafe;
 
-            color: \#1e40af**;
+            color: #1e40af;
 
         }
 
@@ -352,9 +351,9 @@
 
         .resolved {
 
-            background: \#dcfce7**;
+            background: #dcfce7;
 
-            color: \#166534**;
+            color: #166534;
 
         }
 
@@ -364,9 +363,9 @@
 
         .rejected {
 
-            background: \#fee2e2**;
+            background: #fee2e2;
 
-            color: \#991b1b**;
+            color: #991b1b;
 
         }
 
@@ -378,13 +377,13 @@
 
            PRIORITY
 
-           \================================ */
+           ================================ */
 
         .priority-high {
 
-            color: \#dc2626**;
+            color: #dc2626;
 
-            font-weight: \700**;
+            font-weight: 700;
 
         }
 
@@ -394,9 +393,9 @@
 
         .priority-medium {
 
-            color: \#d97706**;
+            color: #d97706;
 
-            font-weight: \700**;
+            font-weight: 700;
 
         }
 
@@ -406,9 +405,9 @@
 
         .priority-low {
 
-            color: \#16a34a**;
+            color: #16a34a;
 
-            font-weight: \700**;
+            font-weight: 700;
 
         }
 
@@ -420,25 +419,25 @@
 
            ACTION BUTTON
 
-           \================================ */
+           ================================ */
 
         .action-edit {
 
-            display: \inline-block**;
+            display: inline-block;
 
-            padding: \7px 12px**;
+            padding: 7px 12px;
 
-            border-radius: \8px**;
+            border-radius: 8px;
 
-            background: \#eff6ff**;
+            background: #eff6ff;
 
-            color: \#1d4ed8**;
+            color: #1d4ed8;
 
-            text-decoration: \none**;
+            text-decoration: none;
 
-            font-size: \13px**;
+            font-size: 13px;
 
-            font-weight: \600**;
+            font-weight: 600;
 
         }
 
@@ -448,7 +447,7 @@
 
         .action-edit:hover {
 
-            background: \#dbeafe**;
+            background: #dbeafe;
 
         }
 
@@ -458,9 +457,9 @@
 
         .no-data {
 
-            text-align: \center**;
+            text-align: center;
 
-            padding: \50px**;
+            padding: 50px;
 
         }
 
@@ -470,9 +469,9 @@
 
         .no-data-icon {
 
-            font-size: \55px**;
+            font-size: 55px;
 
-            margin-bottom: \15px**;
+            margin-bottom: 15px;
 
         }
 
@@ -484,13 +483,13 @@
 
            MOBILE
 
-           \================================ */
+           ================================ */
 
         @media (max-width: 900px) {
 
             .filter-form {
 
-                grid-template-columns: \1fr 1fr**;
+                grid-template-columns: 1fr 1fr;
 
             }
 
@@ -504,7 +503,7 @@
 
             .filter-form {
 
-                grid-template-columns: \1fr**;
+                grid-template-columns: 1fr;
 
             }
 
@@ -528,11 +527,11 @@
 
      NAVIGATION
 
-     \========================================== -->
+     ========================================== -->
 
-<nav class="navbar"*>
+<nav class="navbar">
 
-    <div class="logo"*>
+    <div class="logo">
 
         🏛️ Public Management System
 
@@ -542,27 +541,27 @@
 
 
 
-    <div class="nav-links"*>
+    <div class="nav-links">
 
-        <a href="dashboard.jsp"*>
+        <a href="dashboard.jsp">
 
             🏠 Dashboard
 
         </a>
 
-        <a href="users.jsp"*>
+        <a href="users.jsp">
 
             👥 Users
 
         </a>
 
-        <a href="admin-complaints.jsp"*>
+        <a href="admin-complaints.jsp">
 
             📋 Complaints
 
         </a>
 
-        <a href="logout"*>
+        <a href="logout">
 
             🚪 Logout
 
@@ -580,17 +579,17 @@
 
      MAIN
 
-     \========================================== -->
+     ========================================== -->
 
-<div class="container"*>
-
-
+<div class="container">
 
 
 
-    <div class="complaint-header"*>
 
-        <h1 class="page-title"*>
+
+    <div class="complaint-header">
+
+        <h1 class="page-title">
 
             📋 Complaint Management
 
@@ -606,9 +605,8 @@
 
         <br>
 
-        <a class="back-link"*
-
-           href="dashboard.jsp"*>
+        <a class="back-link"
+           href="dashboard.jsp">
 
             ← Back to Dashboard
 
@@ -628,15 +626,15 @@
 
          SEARCH AND FILTER
 
-         \====================================== -->
+         ====================================== -->
 
-    <div class="filter-box"*>
-
-
+    <div class="filter-box">
 
 
 
-        <div class="filter-title"*>
+
+
+        <div class="filter-title">
 
             🔍 Search & Filter Complaints
 
@@ -648,11 +646,9 @@
 
         <form
 
-            method="get"*
-
-            action="admin-complaints.jsp"*
-
-            class="filter-form"*>
+            method="get"
+            action="admin-complaints.jsp"
+            class="filter-form">
 
 
 
@@ -660,9 +656,9 @@
 
             <!-- SEARCH -->
 
-            <div class="filter-field"*>
+            <div class="filter-field">
 
-                <label for="search"*>
+                <label for="search">
 
                     🔍 Search
 
@@ -670,15 +666,11 @@
 
                 <input
 
-                    type="text"*
-
-                    id="search"*
-
-                    name="search"*
-
-                    value="<%= search %>*"*
-
-                    placeholder="Citizen, email, title or location"*>
+                    type="text"
+                    id="search"
+                    name="search"
+                    value="<%= search %>"
+                    placeholder="Citizen, email, title or location">
 
             </div>
 
@@ -688,9 +680,9 @@
 
             <!-- STATUS -->
 
-            <div class="filter-field"*>
+            <div class="filter-field">
 
-                <label for="status"*>
+                <label for="status">
 
                     🔄 Status
 
@@ -698,11 +690,10 @@
 
                 <select
 
-                    id="status"*
+                    id="status"
+                    name="status">
 
-                    name="status"*>
-
-                    <option value=""*>
+                    <option value="">
 
                         All Status
 
@@ -710,8 +701,7 @@
 
                     <option
 
-                        value="PENDING"*
-
+                        value="PENDING"
                         <%= "PENDING".equals(statusFilter)
 
                             ? "selected" : "" %>>
@@ -722,8 +712,7 @@
 
                     <option
 
-                        value="IN_PROGRESS"*
-
+                        value="IN_PROGRESS"
                         <%= "IN_PROGRESS".equals(statusFilter)
 
                             ? "selected" : "" %>>
@@ -734,8 +723,7 @@
 
                     <option
 
-                        value="RESOLVED"*
-
+                        value="RESOLVED"
                         <%= "RESOLVED".equals(statusFilter)
 
                             ? "selected" : "" %>>
@@ -746,8 +734,7 @@
 
                     <option
 
-                        value="REJECTED"*
-
+                        value="REJECTED"
                         <%= "REJECTED".equals(statusFilter)
 
                             ? "selected" : "" %>>
@@ -766,9 +753,9 @@
 
             <!-- CATEGORY -->
 
-            <div class="filter-field"*>
+            <div class="filter-field">
 
-                <label for="category"*>
+                <label for="category">
 
                     📂 Category
 
@@ -776,11 +763,10 @@
 
                 <select
 
-                    id="category"*
+                    id="category"
+                    name="category">
 
-                    name="category"*>
-
-                    <option value=""*>
+                    <option value="">
 
                         All Categories
 
@@ -788,8 +774,7 @@
 
                     <option
 
-                        value="ROADS"*
-
+                        value="ROADS"
                         <%= "ROADS".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -800,8 +785,7 @@
 
                     <option
 
-                        value="ELECTRICITY"*
-
+                        value="ELECTRICITY"
                         <%= "ELECTRICITY".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -812,8 +796,7 @@
 
                     <option
 
-                        value="WATER"*
-
+                        value="WATER"
                         <%= "WATER".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -824,8 +807,7 @@
 
                     <option
 
-                        value="SANITATION"*
-
+                        value="SANITATION"
                         <%= "SANITATION".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -836,8 +818,7 @@
 
                     <option
 
-                        value="STREET_LIGHT"*
-
+                        value="STREET_LIGHT"
                         <%= "STREET_LIGHT".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -848,8 +829,7 @@
 
                     <option
 
-                        value="PUBLIC_SAFETY"*
-
+                        value="PUBLIC_SAFETY"
                         <%= "PUBLIC_SAFETY".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -860,8 +840,7 @@
 
                     <option
 
-                        value="OTHER"*
-
+                        value="OTHER"
                         <%= "OTHER".equals(categoryFilter)
 
                             ? "selected" : "" %>>
@@ -884,9 +863,8 @@
 
                 <button
 
-                    type="submit"*
-
-                    class="filter-button"*>
+                    type="submit"
+                    class="filter-button">
 
                     🔎 Search
 
@@ -906,9 +884,8 @@
 
         <a
 
-            href="admin-complaints.jsp"*
-
-            class="clear-button"*>
+            href="admin-complaints.jsp"
+            class="clear-button">
 
             ✖️ Clear Filters
 
@@ -932,9 +909,9 @@
 
          COMPLAINT TABLE
 
-         \====================================== -->
+         ====================================== -->
 
-    <div class="table-container"*>
+    <div class="table-container">
 
         <table>
 
@@ -994,15 +971,11 @@
 
         Connection con = DBConnection.getConnection();
 
-        /*
-
-         * =====================================
+        /* =====================================
 
          * DYNAMIC QUERY
 
-         * =====================================
-
-         */
+         * =====================================*/
 
         StringBuilder sql =
 
@@ -1028,9 +1001,7 @@
 
 
 
-        /*
-
-         * Search condition
+        /* Search condition
 
          */
 
@@ -1060,9 +1031,7 @@
 
 
 
-        /*
-
-         * Status filter
+        /* Status filter
 
          */
 
@@ -1080,9 +1049,7 @@
 
 
 
-        /*
-
-         * Category filter
+        /* Category filter
 
          */
 
@@ -1128,9 +1095,7 @@
 
 
 
-        /*
-
-         * Search parameters
+        /* Search parameters
 
          */
 
@@ -1190,9 +1155,7 @@
 
 
 
-        /*
-
-         * Status parameter
+        /* Status parameter
 
          */
 
@@ -1212,9 +1175,7 @@
 
 
 
-        /*
-
-         * Category parameter
+        /* Category parameter
 
          */
 
@@ -1372,7 +1333,7 @@
 
 %>
 
-                        <span class="priority-high"*>
+                        <span class="priority-high">
 
                             🔴 HIGH
 
@@ -1384,7 +1345,7 @@
 
 %>
 
-                        <span class="priority-medium"*>
+                        <span class="priority-medium">
 
                             🟡 MEDIUM
 
@@ -1396,7 +1357,7 @@
 
 %>
 
-                        <span class="priority-low"*>
+                        <span class="priority-low">
 
                             🟢 LOW
 
@@ -1424,7 +1385,7 @@
 
 %>
 
-                        <span class="status-badge pending"*>
+                        <span class="status-badge pending">
 
                             🟡 PENDING
 
@@ -1436,7 +1397,7 @@
 
 %>
 
-                        <span class="status-badge progress"*>
+                        <span class="status-badge progress">
 
                             🔵 IN PROGRESS
 
@@ -1448,7 +1409,7 @@
 
 %>
 
-                        <span class="status-badge resolved"*>
+                        <span class="status-badge resolved">
 
                             🟢 RESOLVED
 
@@ -1460,7 +1421,7 @@
 
 %>
 
-                        <span class="status-badge rejected"*>
+                        <span class="status-badge rejected">
 
                             🔴 REJECTED
 
@@ -1504,9 +1465,8 @@
 
                             <a
 
-                                    class="action-edit"*
-
-                                    href="complaint-details.jsp?id=<%= rs.getInt("id") %>"*>
+                                    class="action-edit"
+                                    href="complaint-details.jsp?id=<%= rs.getInt("id") %>">
 
                                     👀 View
 
@@ -1534,15 +1494,11 @@
 
 
 
-        /*
-
-         * =====================================
+        /* =====================================
 
          * NO RESULTS
 
-         * =====================================
-
-         */
+         * =====================================*/
 
         if (!found) {
 
@@ -1554,11 +1510,11 @@
 
                 <tr>
 
-                    <td colspan="9"*>
+                    <td colspan="9">
 
-                        <div class="no-data"*>
+                        <div class="no-data">
 
-                            <div class="no-data-icon"*>
+                            <div class="no-data-icon">
 
                                 🔍
 
@@ -1618,11 +1574,10 @@
 
                     <td
 
-                        colspan="9"*
+                        colspan="9"
+                        style="color:red;
 
-                        style="color:\red**;
-
-                               padding:\20px**;">
+                               padding:20px;">
 
                         ⚠️ Database Error:
 
