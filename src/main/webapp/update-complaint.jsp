@@ -24,6 +24,10 @@
 
 
 
+
+
+
+
     // ==========================================
 
     // ADMIN PROTECTION
@@ -41,6 +45,10 @@
         return;
 
     }
+
+
+
+
 
 
 
@@ -70,15 +78,19 @@
 
 
 
-<!**DOCTYPE** html>
+
+
+
+
+<!DOCTYPE html>
 
 <html lang="en">
 
 <head>
 
-    <**meta** charset="UTF-8">
+    <meta charset="UTF-8">
 
-    <**meta** name="viewport"
+    <meta name="viewport"
 
           content="width=device-width, initial-scale=1.0">
 
@@ -90,109 +102,109 @@
 
         .update-wrapper {
 
-            max-width: *750px*;
+            max-width: 750px;
 
-            margin: *40px auto*;
+            margin: 40px auto;
 
         }
 
         .update-card {
 
-            background: *white*;
+            background: white;
 
-            padding: *40px*;
+            padding: 40px;
 
-            border-radius: *22px*;
+            border-radius: 22px;
 
             box-shadow:
 
-                *0 12px 35px*
+                0 12px 35px
 
-                *rgba(15, 23, 42, 0.10)*;
+                rgba(15, 23, 42, 0.10);
 
         }
 
         .update-header {
 
-            text-align: *center*;
+            text-align: center;
 
-            margin-bottom: *30px*;
+            margin-bottom: 30px;
 
         }
 
         .update-icon {
 
-            font-size: *55px*;
+            font-size: 55px;
 
-            margin-bottom: *10px*;
+            margin-bottom: 10px;
 
         }
 
         .update-header h1 {
 
-            background: *none*;
+            background: none;
 
-            padding: *0*;
+            padding: 0;
 
-            color: *#0f172a*;
+            color: #0f172a;
 
-            margin-bottom: *8px*;
+            margin-bottom: 8px;
 
         }
 
         .update-header p {
 
-            color: *#64748b*;
+            color: #64748b;
 
         }
 
         .complaint-info {
 
-            background: *#f8fafc*;
+            background: #f8fafc;
 
-            padding: *20px*;
+            padding: 20px;
 
-            border-radius: *12px*;
+            border-radius: 12px;
 
-            margin-bottom: *25px*;
+            margin-bottom: 25px;
 
         }
 
         .info-row {
 
-            margin-bottom: *10px*;
+            margin-bottom: 10px;
 
         }
 
         .info-row:last-child {
 
-            margin-bottom: *0*;
+            margin-bottom: 0;
 
         }
 
         .info-label {
 
-            font-weight: *700*;
+            font-weight: 700;
 
-            color: *#334155*;
+            color: #334155;
 
         }
 
         .field {
 
-            margin-bottom: *20px*;
+            margin-bottom: 20px;
 
         }
 
         .field label {
 
-            display: *block*;
+            display: block;
 
-            font-weight: *600*;
+            font-weight: 600;
 
-            color: *#334155*;
+            color: #334155;
 
-            margin-bottom: *8px*;
+            margin-bottom: 8px;
 
         }
 
@@ -200,85 +212,85 @@
 
         .field textarea {
 
-            width: *100%*;
+            width: 100%;
 
         }
 
         .field textarea {
 
-            min-height: *130px*;
+            min-height: 130px;
 
-            padding: *12px 14px*;
+            padding: 12px 14px;
 
-            border: *1px solid #cbd5e1*;
+            border: 1px solid #cbd5e1;
 
-            border-radius: *9px*;
+            border-radius: 9px;
 
-            font-family: *inherit*;
+            font-family: inherit;
 
-            font-size: *15px*;
+            font-size: 15px;
 
-            resize: *vertical*;
+            resize: vertical;
 
-            outline: *none*;
+            outline: none;
 
         }
 
         .field textarea:focus {
 
-            border-color: *#2563eb*;
+            border-color: #2563eb;
 
             box-shadow:
 
-                *0 0 0 3px*
+                0 0 0 3px
 
-                *rgba(37, 99, 235, 0.12)*;
+                rgba(37, 99, 235, 0.12);
 
         }
 
         .form-actions {
 
-            display: *flex*;
+            display: flex;
 
-            gap: *12px*;
+            gap: 12px;
 
-            margin-top: *25px*;
+            margin-top: 25px;
 
         }
 
         .form-actions button {
 
-            flex: *1*;
+            flex: 1;
 
         }
 
         .cancel-button {
 
-            display: *inline-flex*;
+            display: inline-flex;
 
-            align-items: *center*;
+            align-items: center;
 
-            justify-content: *center*;
+            justify-content: center;
 
-            padding: *12px 22px*;
+            padding: 12px 22px;
 
-            border-radius: *9px*;
+            border-radius: 9px;
 
-            background: *#e2e8f0*;
+            background: #e2e8f0;
 
-            color: *#334155*;
+            color: #334155;
 
-            text-decoration: *none*;
+            text-decoration: none;
 
-            font-weight: *600*;
+            font-weight: 600;
 
         }
 
         .cancel-button:hover {
 
-            background: *#cbd5e1*;
+            background: #cbd5e1;
 
-            color: *#0f172a*;
+            color: #0f172a;
 
         }
 
@@ -290,7 +302,15 @@
 
 
 
+
+
+
+
 <body>
+
+
+
+
 
 
 
@@ -338,6 +358,10 @@
 
 
 
+
+
+
+
 <!-- ==========================================
 
      MAIN CONTENT
@@ -349,6 +373,10 @@
     <div class="update-wrapper">
 
         <div class="update-card">
+
+
+
+
 
 
 
@@ -384,9 +412,17 @@ Connection con = null;
 
 
 
+
+
+
+
         ps =
 
             con.prepareStatement(sql);
+
+
+
+
 
 
 
@@ -404,6 +440,10 @@ Connection con = null;
 
 
 
+
+
+
+
         rs =
 
             ps.executeQuery();
@@ -412,9 +452,17 @@ Connection con = null;
 
 
 
+
+
+
+
         if (rs.next()) {
 
 %>
+
+
+
+
 
 
 
@@ -450,6 +498,10 @@ Connection con = null;
 
 
 
+
+
+
+
             <!-- COMPLAINT INFORMATION -->
 
             <div class="complaint-info">
@@ -465,6 +517,10 @@ Connection con = null;
                     CMP-<%= rs.getInt("id") %>
 
                 </div>
+
+
+
+
 
 
 
@@ -488,6 +544,10 @@ Connection con = null;
 
 
 
+
+
+
+
                 <div class="info-row">
 
                     <span class="info-label">
@@ -499,6 +559,10 @@ Connection con = null;
                     <%= rs.getString("email") %>
 
                 </div>
+
+
+
+
 
 
 
@@ -520,6 +584,10 @@ Connection con = null;
 
 
 
+
+
+
+
                 <div class="info-row">
 
                     <span class="info-label">
@@ -531,6 +599,10 @@ Connection con = null;
                     <%= rs.getString("category") %>
 
                 </div>
+
+
+
+
 
 
 
@@ -552,6 +624,10 @@ Connection con = null;
 
 
 
+
+
+
+
                 <div class="info-row">
 
                     <span class="info-label">
@@ -563,6 +639,10 @@ Connection con = null;
                     <%= rs.getString("priority") %>
 
                 </div>
+
+
+
+
 
 
 
@@ -588,6 +668,10 @@ Connection con = null;
 
 
 
+
+
+
+
             <!-- UPDATE FORM -->
 
             <form
@@ -600,13 +684,21 @@ Connection con = null;
 
 
 
+
+
+
+
                 <input
 
                     type="hidden"
 
                     name="id"
 
-                    value=*"*<%= rs.getInt("id") %>*"*>
+                    value="<%= rs.getInt("id") %>">
+
+
+
+
 
 
 
@@ -626,6 +718,10 @@ Connection con = null;
 
 
 
+
+
+
+
                     <select
 
                         id="status"
@@ -633,6 +729,10 @@ Connection con = null;
                         name="status"
 
                         required>
+
+
+
+
 
 
 
@@ -656,6 +756,10 @@ Connection con = null;
 
 
 
+
+
+
+
                         <option
 
                             value="IN_PROGRESS"
@@ -669,6 +773,10 @@ Connection con = null;
                             🔵 In Progress
 
                         </option>
+
+
+
+
 
 
 
@@ -692,6 +800,10 @@ Connection con = null;
 
 
 
+
+
+
+
                         <option
 
                             value="REJECTED"
@@ -710,9 +822,17 @@ Connection con = null;
 
 
 
+
+
+
+
                     </select>
 
                 </div>
+
+
+
+
 
 
 
@@ -732,15 +852,23 @@ Connection con = null;
 
 
 
+
+
+
+
                     <textarea
 
                         id="admin_response"
 
                         name="admin_response"
 
-                        placeholder="Enter a response for the citizen..."><%= rs.getString("admin_response") == null ? "" : rs.getString("admin_response") %>\</textarea>
+                        placeholder="Enter a response for the citizen..."><%= rs.getString("admin_response") == null ? "" : rs.getString("admin_response") %></textarea>
 
                 </div>
+
+
+
+
 
 
 
@@ -754,6 +882,10 @@ Connection con = null;
 
 
 
+
+
+
+
                     <button
 
                         type="submit">
@@ -761,6 +893,10 @@ Connection con = null;
                         💾 Update Complaint
 
                     </button>
+
+
+
+
 
 
 
@@ -780,7 +916,15 @@ Connection con = null;
 
 
 
+
+
+
+
                 </div>
+
+
+
+
 
 
 
@@ -792,11 +936,19 @@ Connection con = null;
 
 
 
+
+
+
+
 <%
 
         } else {
 
 %>
+
+
+
+
 
 
 
@@ -838,9 +990,17 @@ Connection con = null;
 
 
 
+
+
+
+
 <%
 
         }
+
+
+
+
 
 
 
@@ -856,9 +1016,17 @@ Connection con = null;
 
 
 
+
+
+
+
     } catch (Exception e) {
 
 %>
+
+
+
+
 
 
 
@@ -890,6 +1058,10 @@ Connection con = null;
 
 
 
+
+
+
+
 <%
 
     }
@@ -900,11 +1072,19 @@ Connection con = null;
 
 
 
+
+
+
+
         </div>
 
     </div>
 
 </div>
+
+
+
+
 
 
 
