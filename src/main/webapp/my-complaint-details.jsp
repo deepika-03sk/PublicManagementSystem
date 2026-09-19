@@ -1,45 +1,66 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@ page import="java.sql.*" %>
+<%@ page import="com.publicmanagement.DBConnection" %>
 
 <%
+
     // ==========================================
+
     // LOGIN PROTECTION
+
     // ==========================================
 
     if (session.getAttribute("userId") == null) {
 
         response.sendRedirect("index.jsp");
+
         return;
+
     }
 
 
+
     // ==========================================
+
     // GET LOGGED-IN USER ID
+
     // ==========================================
 
     String userIdString =
+
             String.valueOf(session.getAttribute("userId"));
 
     int userId =
+
             Integer.parseInt(userIdString);
 
 
+
     // ==========================================
+
     // GET COMPLAINT ID
+
     // ==========================================
 
     String complaintId =
+
             request.getParameter("id");
 
 
+
     if (complaintId == null ||
+
         complaintId.trim().isEmpty()) {
 
         response.sendRedirect("my-complaints.jsp");
+
         return;
+
     }
 
 %>
+
 
 
 <!DOCTYPE html>
@@ -51,6 +72,7 @@
     <meta charset="UTF-8">
 
     <meta name="viewport"
+
           content="width=device-width, initial-scale=1.0">
 
     <title>My Complaint Details</title>
@@ -58,10 +80,13 @@
     <link rel="stylesheet" href="style.css">
 
 
+
     <style>
 
         /* ==========================================
+
            MAIN DETAILS PAGE
+
            ========================================== */
 
         .details-wrapper {
@@ -73,6 +98,7 @@
         }
 
 
+
         .details-card {
 
             background: white;
@@ -82,14 +108,19 @@
             border-radius: 22px;
 
             box-shadow:
+
                 0 12px 35px
+
                 rgba(15, 23, 42, 0.10);
 
         }
 
 
+
         /* ==========================================
+
            HEADER
+
            ========================================== */
 
         .details-header {
@@ -101,6 +132,7 @@
         }
 
 
+
         .details-icon {
 
             font-size: 55px;
@@ -108,6 +140,7 @@
             margin-bottom: 10px;
 
         }
+
 
 
         .details-header h1 {
@@ -123,6 +156,7 @@
         }
 
 
+
         .details-header p {
 
             color: #64748b;
@@ -130,8 +164,11 @@
         }
 
 
+
         /* ==========================================
+
            INFORMATION SECTIONS
+
            ========================================== */
 
         .info-section {
@@ -147,6 +184,7 @@
         }
 
 
+
         .section-heading {
 
             font-size: 18px;
@@ -160,6 +198,7 @@
         }
 
 
+
         .info-grid {
 
             display: grid;
@@ -171,6 +210,7 @@
         }
 
 
+
         .info-item {
 
             padding: 12px;
@@ -180,6 +220,7 @@
             border-radius: 10px;
 
         }
+
 
 
         .info-label {
@@ -199,6 +240,7 @@
         }
 
 
+
         .info-value {
 
             color: #1e293b;
@@ -210,8 +252,11 @@
         }
 
 
+
         /* ==========================================
+
            DESCRIPTION
+
            ========================================== */
 
         .description-box {
@@ -231,8 +276,11 @@
         }
 
 
+
         /* ==========================================
+
            CURRENT STATUS
+
            ========================================== */
 
         .status-box {
@@ -248,6 +296,7 @@
         }
 
 
+
         .status-pending {
 
             background: #fef3c7;
@@ -255,6 +304,7 @@
             color: #92400e;
 
         }
+
 
 
         .status-progress {
@@ -266,6 +316,7 @@
         }
 
 
+
         .status-resolved {
 
             background: #dcfce7;
@@ -273,6 +324,7 @@
             color: #166534;
 
         }
+
 
 
         .status-rejected {
@@ -284,6 +336,7 @@
         }
 
 
+
         .status-label {
 
             font-size: 13px;
@@ -291,6 +344,7 @@
             font-weight: 600;
 
         }
+
 
 
         .status-value {
@@ -304,8 +358,11 @@
         }
 
 
+
         /* ==========================================
+
            RESPONSE BOX
+
            ========================================== */
 
         .response-box {
@@ -327,6 +384,7 @@
         }
 
 
+
         .no-response {
 
             color: #64748b;
@@ -336,8 +394,11 @@
         }
 
 
+
         /* ==========================================
+
            EVIDENCE
+
            ========================================== */
 
         .evidence-container {
@@ -353,6 +414,7 @@
         }
 
 
+
         .evidence-image {
 
             max-width: 100%;
@@ -362,10 +424,13 @@
             border-radius: 12px;
 
             box-shadow:
+
                 0 8px 25px
+
                 rgba(15, 23, 42, 0.12);
 
         }
+
 
 
         .full-image-button {
@@ -389,6 +454,7 @@
         }
 
 
+
         .full-image-button:hover {
 
             background: #1d4ed8;
@@ -396,8 +462,11 @@
         }
 
 
+
         /* ==========================================
+
            STATUS TIMELINE
+
            ========================================== */
 
         .timeline {
@@ -411,6 +480,7 @@
         }
 
 
+
         .timeline-item {
 
             position: relative;
@@ -422,6 +492,7 @@
             padding-bottom: 25px;
 
         }
+
 
 
         .timeline-item:not(:last-child)::before {
@@ -443,6 +514,7 @@
             border-radius: 5px;
 
         }
+
 
 
         .timeline-marker {
@@ -470,11 +542,13 @@
         }
 
 
+
         .timeline-pending {
 
             background: #fef3c7;
 
         }
+
 
 
         .timeline-progress {
@@ -484,6 +558,7 @@
         }
 
 
+
         .timeline-resolved {
 
             background: #dcfce7;
@@ -491,11 +566,13 @@
         }
 
 
+
         .timeline-rejected {
 
             background: #fee2e2;
 
         }
+
 
 
         .timeline-content {
@@ -509,10 +586,13 @@
             border-radius: 12px;
 
             box-shadow:
+
                 0 4px 12px
+
                 rgba(15, 23, 42, 0.06);
 
         }
+
 
 
         .timeline-status {
@@ -528,6 +608,7 @@
         }
 
 
+
         .timeline-date {
 
             color: #64748b;
@@ -537,6 +618,7 @@
             margin-bottom: 10px;
 
         }
+
 
 
         .timeline-comment {
@@ -550,8 +632,11 @@
         }
 
 
+
         /* ==========================================
+
            BACK BUTTON
+
            ========================================== */
 
         .back-button {
@@ -579,6 +664,7 @@
         }
 
 
+
         .back-button:hover {
 
             background: #cbd5e1;
@@ -588,8 +674,11 @@
         }
 
 
+
         /* ==========================================
+
            MOBILE
+
            ========================================== */
 
         @media (max-width: 650px) {
@@ -601,11 +690,13 @@
             }
 
 
+
             .info-grid {
 
                 grid-template-columns: 1fr;
 
             }
+
 
 
             .timeline-content {
@@ -621,12 +712,16 @@
 </head>
 
 
+
 <body>
 
 
+
 <!-- ==========================================
+
      NAVIGATION
-     ========================================== -->
+
+     \========================================== -->
 
 <nav class="navbar">
 
@@ -635,6 +730,7 @@
         🏛️ Public Management System
 
     </div>
+
 
 
     <div class="nav-links">
@@ -646,11 +742,13 @@
         </a>
 
 
+
         <a href="my-complaints.jsp">
 
             📋 My Complaints
 
         </a>
+
 
 
         <a href="logout">
@@ -664,9 +762,12 @@
 </nav>
 
 
+
 <!-- ==========================================
+
      MAIN CONTENT
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="container">
 
@@ -675,17 +776,12 @@
         <div class="details-card">
 
 
-<%
 
+<%
     // ==========================================
     // DATABASE CONNECTION
     // ==========================================
 
-    Connection con = DriverManager.getConnection(
-    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
-    System.getenv("MYSQLUSER"),
-    System.getenv("MYSQLPASSWORD")
-);
     Connection con = null;
 
     PreparedStatement ps = null;
@@ -693,69 +789,103 @@
     ResultSet rs = null;
 
 
+
     try {
 
         Class.forName(
+
                 "com.mysql.cj.jdbc.Driver");
 
 
-        
-        Connection con = DBConnection.getConnection();
+
+
+
+        con = DBConnection.getConnection();
+
         // ======================================
+
         // SECURITY:
+
         // ONLY THIS USER'S COMPLAINT
+
         // ======================================
 
         String sql =
+
             "SELECT * FROM complaints " +
+
             "WHERE id = ? AND user_id = ?";
 
 
+
         ps =
+
             con.prepareStatement(sql);
 
 
+
         ps.setInt(
+
             1,
+
             Integer.parseInt(complaintId)
+
         );
+
 
 
         ps.setInt(
+
             2,
+
             userId
+
         );
+
 
 
         rs =
+
             ps.executeQuery();
+
 
 
         if (rs.next()) {
 
 
+
             // =================================
+
             // CURRENT STATUS
+
             // =================================
 
             String currentStatus =
+
                 rs.getString("status");
 
 
+
             String currentStatusClass =
+
                 "status-pending";
 
 
+
             String currentStatusText =
+
                 "🟡 PENDING";
+
 
 
             if ("IN_PROGRESS".equals(currentStatus)) {
 
                 currentStatusClass =
+
                     "status-progress";
 
                 currentStatusText =
+
                     "🔵 IN PROGRESS";
 
             }
@@ -763,9 +893,11 @@
             else if ("RESOLVED".equals(currentStatus)) {
 
                 currentStatusClass =
+
                     "status-resolved";
 
                 currentStatusText =
+
                     "🟢 RESOLVED";
 
             }
@@ -773,9 +905,11 @@
             else if ("REJECTED".equals(currentStatus)) {
 
                 currentStatusClass =
+
                     "status-rejected";
 
                 currentStatusText =
+
                     "🔴 REJECTED";
 
             }
@@ -783,9 +917,12 @@
 %>
 
 
+
 <!-- ==========================================
+
      HEADER
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="details-header">
 
@@ -796,6 +933,7 @@
     </div>
 
 
+
     <h1>
 
         My Complaint Details
@@ -803,9 +941,11 @@
     </h1>
 
 
+
     <p>
 
         View the complete details and
+
         current status of your complaint.
 
     </p>
@@ -813,9 +953,12 @@
 </div>
 
 
+
 <!-- ==========================================
+
      COMPLAINT INFORMATION
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="info-section">
 
@@ -826,7 +969,9 @@
     </div>
 
 
+
     <div class="info-grid">
+
 
 
         <div class="info-item">
@@ -838,6 +983,7 @@
             </span>
 
 
+
             <span class="info-value">
 
                 CMP-<%= rs.getInt("id") %>
@@ -845,6 +991,7 @@
             </span>
 
         </div>
+
 
 
         <div class="info-item">
@@ -856,14 +1003,17 @@
             </span>
 
 
+
             <span class="info-value">
 
                 📂
+
                 <%= rs.getString("category") %>
 
             </span>
 
         </div>
+
 
 
         <div class="info-item">
@@ -875,14 +1025,17 @@
             </span>
 
 
+
             <span class="info-value">
 
                 📝
+
                 <%= rs.getString("title") %>
 
             </span>
 
         </div>
+
 
 
         <div class="info-item">
@@ -894,14 +1047,17 @@
             </span>
 
 
+
             <span class="info-value">
 
                 📍
+
                 <%= rs.getString("location") %>
 
             </span>
 
         </div>
+
 
 
         <div class="info-item">
@@ -913,14 +1069,17 @@
             </span>
 
 
+
             <span class="info-value">
 
                 ⚡
+
                 <%= rs.getString("priority") %>
 
             </span>
 
         </div>
+
 
 
         <div class="info-item">
@@ -932,9 +1091,11 @@
             </span>
 
 
+
             <span class="info-value">
 
                 📅
+
                 <%= rs.getTimestamp("created_at") %>
 
             </span>
@@ -942,14 +1103,18 @@
         </div>
 
 
+
     </div>
 
 </div>
 
 
+
 <!-- ==========================================
+
      DESCRIPTION
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="info-section">
 
@@ -958,6 +1123,7 @@
         📄 My Complaint
 
     </div>
+
 
 
     <div class="description-box">
@@ -969,9 +1135,12 @@
 </div>
 
 
+
 <!-- ==========================================
+
      CURRENT STATUS
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="status-box <%= currentStatusClass %>">
 
@@ -980,6 +1149,7 @@
         CURRENT STATUS
 
     </div>
+
 
 
     <div class="status-value">
@@ -991,9 +1161,12 @@
 </div>
 
 
+
 <!-- ==========================================
+
      COMPLAINT EVIDENCE
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="info-section">
 
@@ -1004,13 +1177,17 @@
     </div>
 
 
+
 <%
 
     String attachmentPath =
+
         rs.getString("attachment_path");
 
 
+
     if (attachmentPath == null ||
+
         attachmentPath.trim().isEmpty()) {
 
 %>
@@ -1020,6 +1197,7 @@
         <span class="no-response">
 
             📭 No evidence was attached
+
             to this complaint.
 
         </span>
@@ -1045,14 +1223,16 @@
             class="evidence-image">
 
 
+
         <br>
+
 
 
         <a
 
             href="<%= attachmentPath %>"
 
-            target="_blank"
+            target="\_blank"
 
             class="full-image-button">
 
@@ -1071,9 +1251,12 @@
 </div>
 
 
+
 <!-- ==========================================
+
      STATUS TIMELINE
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="info-section">
 
@@ -1084,49 +1267,73 @@
     </div>
 
 
+
     <div class="timeline">
 
 <%
 
     // ==========================================
+
     // GET COMPLAINT HISTORY
+
     // ==========================================
 
     String historySql =
+
         "SELECT status, comment, changed_at " +
+
         "FROM complaint_history " +
+
         "WHERE complaint_id = ? " +
+
         "ORDER BY changed_at ASC, id ASC";
 
 
+
     PreparedStatement historyPs =
+
         null;
+
 
 
     ResultSet historyRs =
+
         null;
 
 
+
     boolean historyFound =
+
         false;
+
 
 
     try {
 
         historyPs =
+
             con.prepareStatement(
+
                 historySql
+
             );
 
 
+
         historyPs.setInt(
+
             1,
+
             Integer.parseInt(complaintId)
+
         );
 
 
+
         historyRs =
+
             historyPs.executeQuery();
+
 
 
         while (historyRs.next()) {
@@ -1134,39 +1341,55 @@
             historyFound = true;
 
 
+
             String historyStatus =
+
                 historyRs.getString("status");
 
 
+
             String historyComment =
+
                 historyRs.getString("comment");
 
 
+
             // =================================
+
             // TIMELINE-SPECIFIC VARIABLES
+
             // =================================
 
             String timelineIcon =
+
                 "🟡";
 
 
+
             String timelineClass =
+
                 "timeline-pending";
 
 
+
             String timelineText =
+
                 "PENDING";
+
 
 
             if ("IN_PROGRESS".equals(historyStatus)) {
 
                 timelineIcon =
+
                     "🔵";
 
                 timelineClass =
+
                     "timeline-progress";
 
                 timelineText =
+
                     "IN PROGRESS";
 
             }
@@ -1174,12 +1397,15 @@
             else if ("RESOLVED".equals(historyStatus)) {
 
                 timelineIcon =
+
                     "🟢";
 
                 timelineClass =
+
                     "timeline-resolved";
 
                 timelineText =
+
                     "RESOLVED";
 
             }
@@ -1187,12 +1413,15 @@
             else if ("REJECTED".equals(historyStatus)) {
 
                 timelineIcon =
+
                     "🔴";
 
                 timelineClass =
+
                     "timeline-rejected";
 
                 timelineText =
+
                     "REJECTED";
 
             }
@@ -1200,7 +1429,9 @@
 %>
 
 
+
         <div class="timeline-item">
+
 
 
             <div class="timeline-marker <%= timelineClass %>">
@@ -1210,7 +1441,9 @@
             </div>
 
 
+
             <div class="timeline-content">
+
 
 
                 <div class="timeline-status">
@@ -1220,12 +1453,15 @@
                 </div>
 
 
+
                 <div class="timeline-date">
 
                     📅
+
                     <%= historyRs.getTimestamp("changed_at") %>
 
                 </div>
+
 
 
                 <div class="timeline-comment">
@@ -1233,6 +1469,7 @@
 <%
 
                 if (historyComment != null &&
+
                     !historyComment.trim().isEmpty()) {
 
 %>
@@ -1258,15 +1495,19 @@
                 </div>
 
 
+
             </div>
+
 
 
         </div>
 
 
+
 <%
 
         }
+
 
 
     }
@@ -1280,6 +1521,7 @@
         }
 
 
+
         if (historyPs != null) {
 
             historyPs.close();
@@ -1289,9 +1531,11 @@
     }
 
 
+
     if (!historyFound) {
 
 %>
+
 
 
         <div class="response-box">
@@ -1305,6 +1549,7 @@
         </div>
 
 
+
 <%
 
     }
@@ -1316,9 +1561,12 @@
 </div>
 
 
+
 <!-- ==========================================
+
      ADMIN RESPONSE
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="info-section">
 
@@ -1329,13 +1577,17 @@
     </div>
 
 
+
 <%
 
     String adminResponse =
+
         rs.getString("admin_response");
 
 
+
     if (adminResponse == null ||
+
         adminResponse.trim().isEmpty()) {
 
 %>
@@ -1345,6 +1597,7 @@
         <span class="no-response">
 
             ⏳ The administration has not
+
             responded to this complaint yet.
 
         </span>
@@ -1374,9 +1627,12 @@
 </div>
 
 
+
 <!-- ==========================================
+
      BACK BUTTON
-     ========================================== -->
+
+     \========================================== -->
 
 <a
 
@@ -1387,6 +1643,7 @@
     ← Back to My Complaints
 
 </a>
+
 
 
 <%
@@ -1398,9 +1655,12 @@
 %>
 
 
+
 <!-- ==========================================
+
      COMPLAINT NOT FOUND
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="details-header">
 
@@ -1411,6 +1671,7 @@
     </div>
 
 
+
     <h1>
 
         Complaint Not Available
@@ -1418,14 +1679,17 @@
     </h1>
 
 
+
     <p>
 
         This complaint does not exist
+
         or does not belong to your account.
 
     </p>
 
 </div>
+
 
 
 <a
@@ -1439,9 +1703,11 @@
 </a>
 
 
+
 <%
 
         }
+
 
 
     }
@@ -1451,9 +1717,12 @@
 %>
 
 
+
 <!-- ==========================================
+
      DATABASE ERROR
-     ========================================== -->
+
+     \========================================== -->
 
 <div class="details-header">
 
@@ -1464,11 +1733,13 @@
     </div>
 
 
+
     <h1>
 
         Database Error
 
     </h1>
+
 
 
     <p>
@@ -1480,6 +1751,7 @@
 </div>
 
 
+
 <a
 
     href="my-complaints.jsp"
@@ -1491,6 +1763,7 @@
 </a>
 
 
+
 <%
 
     }
@@ -1500,25 +1773,33 @@
         if (rs != null) {
 
             try {
+
                 rs.close();
+
             } catch (Exception ignored) {}
 
         }
+
 
 
         if (ps != null) {
 
             try {
+
                 ps.close();
+
             } catch (Exception ignored) {}
 
         }
 
 
+
         if (con != null) {
 
             try {
+
                 con.close();
+
             } catch (Exception ignored) {}
 
         }
@@ -1528,11 +1809,13 @@
 %>
 
 
+
         </div>
 
     </div>
 
 </div>
+
 
 
 </body>
