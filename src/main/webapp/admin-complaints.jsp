@@ -102,6 +102,10 @@
     <title>Complaint Management</title>
 
     <link rel="stylesheet"* href="style.css">
+    
+    
+    
+    
 
     <style>
 
@@ -508,7 +512,65 @@
             }
 
         }
+/* ================================
+   ADMIN NOTIFICATIONS
+   ================================ */
 
+.notification-box {
+    background: white;
+    padding: 22px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08);
+}
+
+.notification-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 15px;
+}
+
+.notification-item {
+    padding: 14px 16px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #f8fafc;
+    border-left: 4px solid #2563eb;
+}
+
+.notification-item.unread {
+    background: #eff6ff;
+    border-left-color: #2563eb;
+}
+
+.notification-message {
+    color: #334155;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.notification-date {
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.notification-view {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 10px;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.notification-view:hover {
+    background: #1d4ed8;
+}
     </style>
 
 </head>
@@ -613,7 +675,143 @@
         </a>
 
     </div>
+<!-- ======================================
+     ADMIN NOTIFICATIONS
+     ====================================== -->
 
+<div class="notification-box">
+
+    <div class="notification-title">
+        🔔 Notifications
+    </div>
+
+    <%
+        Connection notificationCon = null;
+        PreparedStatement notificationPs = null;
+        ResultSet notificationRs = null;
+
+        boolean hasNotifications = false;
+
+        try {
+
+            notificationCon = DBConnection.getConnection();
+
+            String notificationSql =
+                    "SELECT id, complaint_id, message, " +
+                    "is_read, created_at " +
+                    "FROM notifications " +
+                    "WHERE user_id = ? " +
+                    "ORDER BY created_at DESC " +
+                    "LIMIT 10";
+
+            notificationPs =
+                    notificationCon.prepareStatement(
+                            notificationSql);
+
+            int currentAdminId =
+                    (Integer) session.getAttribute("userId");
+
+            notificationPs.setInt(
+                    1,
+                    currentAdminId);
+
+            notificationRs =
+                    notificationPs.executeQuery();
+
+            while (notificationRs.next()) {
+
+                hasNotifications = true;
+
+                int notificationId =
+                        notificationRs.getInt("id");
+
+                int notificationComplaintId =
+                        notificationRs.getInt("complaint_id");
+
+                String notificationMessage =
+                        notificationRs.getString("message");
+
+                boolean isRead =
+                        notificationRs.getBoolean("is_read");
+    %>
+
+        <div class="notification-item <%= !isRead ? "unread" : "" %>">
+
+            <div class="notification-message">
+                <%= notificationMessage %>
+            </div>
+
+            <div class="notification-date">
+                <%= notificationRs.getTimestamp("created_at") %>
+            </div>
+
+            <% if (notificationComplaintId > 0) { %>
+
+                <a
+                    class="notification-view"
+                    href="complaint-details.jsp?id=<%= notificationComplaintId %>">
+                    👀 View Complaint
+                </a>
+
+            <% } %>
+
+        </div>
+
+    <%
+            }
+
+            if (!hasNotifications) {
+    %>
+
+        <div class="notification-item">
+
+            <div class="notification-message">
+                🔔 No new notifications.
+            </div>
+
+        </div>
+
+    <%
+            }
+
+        } catch (Exception notificationError) {
+    %>
+
+        <div class="notification-item">
+
+            <div class="notification-message">
+                ⚠️ Unable to load notifications.
+            </div>
+
+        </div>
+
+    <%
+        } finally {
+
+            try {
+                if (notificationRs != null) {
+                    notificationRs.close();
+                }
+            } catch (Exception ignored) {
+            }
+
+            try {
+                if (notificationPs != null) {
+                    notificationPs.close();
+                }
+            } catch (Exception ignored) {
+            }
+
+            try {
+                if (notificationCon != null) {
+                    notificationCon.close();
+                }
+            } catch (Exception ignored) {
+            }
+        }
+    %>
+
+</div>
 
 
 
