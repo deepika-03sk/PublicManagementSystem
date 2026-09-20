@@ -1,12 +1,8 @@
 package com.publicmanagement;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -15,16 +11,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    // Railway MySQL environment variables
-    private static final String DB_URL = System.getenv("MYSQL_URL");
-    private static final String DB_USER = System.getenv("MYSQLUSER");
-    private static final String DB_PASSWORD = System.getenv("MYSQLPASSWORD");
+    private static final SecureRandom RANDOM = new SecureRandom();
 
     @Override
     protected void doPost(
@@ -32,7 +26,6 @@ public class RegisterServlet extends HttpServlet {
             HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Get form data
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
         String email = request.getParameter("email");
@@ -54,24 +47,23 @@ public class RegisterServlet extends HttpServlet {
             return;
         }
 
+        email = email.trim().toLowerCase();
+
         Connection con = null;
         PreparedStatement checkPs = null;
-        PreparedStatement insertPs = null;
         ResultSet rs = null;
 
         try {
 
-            // Load MySQL driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
             // Connect to Railway MySQL
             con = DBConnection.getConnection();
+
             // Check whether email already exists
             String checkSql =
                     "SELECT id FROM users WHERE email = ?";
 
             checkPs = con.prepareStatement(checkSql);
-            checkPs.setString(1, email.trim());
+            checkPs.setString(1, email);
 
             rs = checkPs.executeQuery();
 
@@ -82,32 +74,65 @@ public class RegisterServlet extends HttpServlet {
                         "❌ This email is already registered.",
                         "register.jsp"
                 );
+                return;
+            }
+
+            // Generate 6-digit OTP
+            int otpNumber = 100000 + RANDOM.nextInt(900000);
+            String otp = String.valueOf(otpNumber);
+
+            // Store registration details temporarily in session
+            HttpSession session = request.getSession();
+
+            session.setAttribute("registration_first_name",
+                    firstName.trim());
+
+            session.setAttribute("registration_last_name",
+                    lastName.trim());
+
+            session.setAttribute("registration_email",
+                    email);
+
+            session.setAttribute("registration_phone",
+                    phone.trim());
+
+            session.setAttribute("registration_password",
+                    password);
+
+            session.setAttribute("registration_otp",
+                    otp);
+
+            session.setAttribute(
+                    "registration_otp_time",
+                    System.currentTimeMillis()
+            );
+
+            // Send OTP email
+            boolean emailSent =
+                    EmailService.sendOtp(email, otp);
+
+            if (!emailSent) {
+
+                // Remove temporary registration data
+                session.removeAttribute("registration_first_name");
+                session.removeAttribute("registration_last_name");
+                session.removeAttribute("registration_email");
+                session.removeAttribute("registration_phone");
+                session.removeAttribute("registration_password");
+                session.removeAttribute("registration_otp");
+                session.removeAttribute("registration_otp_time");
+
+                showMessage(
+                        response,
+                        "⚠️ Unable to send OTP. Please try again.",
+                        "register.jsp"
+                );
 
                 return;
             }
 
-            // Insert new citizen
-            String insertSql =
-                    "INSERT INTO users "
-                    + "(first_name, last_name, email, phone, password, role) "
-                    + "VALUES (?, ?, ?, ?, ?, 'CITIZEN')";
-
-            insertPs = con.prepareStatement(insertSql);
-
-            insertPs.setString(1, firstName.trim());
-            insertPs.setString(2, lastName.trim());
-            insertPs.setString(3, email.trim());
-            insertPs.setString(4, phone.trim());
-            insertPs.setString(5, password);
-
-            insertPs.executeUpdate();
-
-            // Registration successful
-            showMessage(
-                    response,
-                    "✅ Account created successfully! You can now login.",
-                    "index.jsp"
-            );
+            // OTP sent successfully
+            response.sendRedirect("verify-otp.jsp");
 
         } catch (Exception e) {
 
@@ -121,7 +146,9 @@ public class RegisterServlet extends HttpServlet {
                     + "<body>"
                     + "<h2>⚠️ Registration Error</h2>"
                     + "<p>" + e.getMessage() + "</p>"
-                    + "<a href='register.jsp'>← Back to Registration</a>"
+                    + "<a href='register.jsp'>"
+                    + "← Back to Registration"
+                    + "</a>"
                     + "</body>"
                     + "</html>"
             );
@@ -138,13 +165,6 @@ public class RegisterServlet extends HttpServlet {
             try {
                 if (checkPs != null) {
                     checkPs.close();
-                }
-            } catch (Exception ignored) {
-            }
-
-            try {
-                if (insertPs != null) {
-                    insertPs.close();
                 }
             } catch (Exception ignored) {
             }
@@ -200,7 +220,9 @@ public class RegisterServlet extends HttpServlet {
                 + "<body>"
                 + "<div class='box'>"
                 + "<h2>" + message + "</h2>"
-                + "<a href='" + redirectPage + "'>Continue →</a>"
+                + "<a href='" + redirectPage + "'>"
+                + "Continue →"
+                + "</a>"
                 + "</div>"
                 + "</body>"
                 + "</html>"
