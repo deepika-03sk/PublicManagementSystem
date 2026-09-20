@@ -69,37 +69,42 @@ public class UpdateComplaintServlet extends HttpServlet {
         }
 
         Connection con = null;
-        PreparedStatement getStatusPs = null;
+        PreparedStatement complaintPs = null;
         PreparedStatement updatePs = null;
         PreparedStatement historyPs = null;
-        ResultSet statusRs = null;
+        ResultSet complaintRs = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             con = DBConnection.getConnection();
 
-            // GET OLD STATUS
-            String getStatusSql =
-                    "SELECT status FROM complaints WHERE id = ?";
+            // GET OLD STATUS AND CITIZEN DETAILS
+            String complaintSql =
+                    "SELECT c.status, u.first_name, u.email " +
+                    "FROM complaints c " +
+                    "JOIN users u ON c.user_id = u.id " +
+                    "WHERE c.id = ?";
 
-            getStatusPs = con.prepareStatement(getStatusSql);
-            getStatusPs.setInt(1, complaintId);
+            complaintPs = con.prepareStatement(complaintSql);
+            complaintPs.setInt(1, complaintId);
 
-            statusRs = getStatusPs.executeQuery();
+            complaintRs = complaintPs.executeQuery();
 
-            if (!statusRs.next()) {
+            if (!complaintRs.next()) {
                 response.sendRedirect("admin-complaints.jsp");
                 return;
             }
 
-            String oldStatus = statusRs.getString("status");
+            String oldStatus = complaintRs.getString("status");
+            String citizenName = complaintRs.getString("first_name");
+            String citizenEmail = complaintRs.getString("email");
 
-            statusRs.close();
-            statusRs = null;
+            complaintRs.close();
+            complaintRs = null;
 
-            getStatusPs.close();
-            getStatusPs = null;
+            complaintPs.close();
+            complaintPs = null;
 
             // UPDATE COMPLAINT
             String updateSql =
@@ -147,6 +152,42 @@ public class UpdateComplaintServlet extends HttpServlet {
                 historyPs.setInt(4, adminId);
 
                 historyPs.executeUpdate();
+
+                historyPs.close();
+                historyPs = null;
+            }
+
+            // SEND EMAIL NOTIFICATION
+            if (citizenEmail != null &&
+                !citizenEmail.trim().isEmpty()) {
+
+                String emailBody =
+                        "Dear " + citizenName + ",\n\n"
+                        + "Your complaint has been updated in the "
+                        + "Public Management System.\n\n"
+                        + "Complaint ID: " + complaintId + "\n"
+                        + "New Status: " + newStatus + "\n\n";
+
+                if (adminResponse != null &&
+                    !adminResponse.trim().isEmpty()) {
+
+                    emailBody +=
+                            "Admin Response:\n"
+                            + adminResponse
+                            + "\n\n";
+                }
+
+                emailBody +=
+                        "You can log in to the Public Management System "
+                        + "to view the complete complaint details.\n\n"
+                        + "Regards,\n"
+                        + "Public Management System";
+
+                EmailService.sendEmail(
+                        citizenEmail,
+                        "Complaint Update - Public Management System",
+                        emailBody
+                );
             }
 
             response.sendRedirect("admin-complaints.jsp");
@@ -175,15 +216,15 @@ public class UpdateComplaintServlet extends HttpServlet {
         } finally {
 
             try {
-                if (statusRs != null) {
-                    statusRs.close();
+                if (complaintRs != null) {
+                    complaintRs.close();
                 }
             } catch (Exception ignored) {
             }
 
             try {
-                if (getStatusPs != null) {
-                    getStatusPs.close();
+                if (complaintPs != null) {
+                    complaintPs.close();
                 }
             } catch (Exception ignored) {
             }

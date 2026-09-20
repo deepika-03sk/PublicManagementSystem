@@ -23,19 +23,55 @@ public class EmailService {
 
     public static boolean sendOtp(String recipientEmail, String otp) {
 
+        String subject =
+                "Public Management System - Email Verification OTP";
+
+        String emailBody =
+                "Dear Citizen,\n\n"
+                + "Your OTP for Public Management System email verification is:\n\n"
+                + otp
+                + "\n\n"
+                + "This OTP is valid for 10 minutes.\n\n"
+                + "Please do not share this OTP with anyone.\n\n"
+                + "Regards,\n"
+                + "Public Management System";
+
+        return sendEmail(recipientEmail, subject, emailBody);
+    }
+
+    public static boolean sendEmail(
+            String recipientEmail,
+            String subject,
+            String emailBody) {
+
         try {
+
             Properties properties = new Properties();
 
-            properties.put("mail.smtp.host", "smtp.gmail.com");
-            properties.put("mail.smtp.port", "587");
-            properties.put("mail.smtp.auth", "true");
-            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put(
+                    "mail.smtp.host",
+                    "smtp.gmail.com");
+
+            properties.put(
+                    "mail.smtp.port",
+                    "587");
+
+            properties.put(
+                    "mail.smtp.auth",
+                    "true");
+
+            properties.put(
+                    "mail.smtp.starttls.enable",
+                    "true");
 
             Session session = Session.getInstance(
                     properties,
                     new Authenticator() {
+
                         @Override
-                        protected PasswordAuthentication getPasswordAuthentication() {
+                        protected PasswordAuthentication
+                        getPasswordAuthentication() {
+
                             return new PasswordAuthentication(
                                     MAIL_USERNAME,
                                     MAIL_PASSWORD.replaceAll("\\s+", "")
@@ -46,25 +82,15 @@ public class EmailService {
 
             Message message = new MimeMessage(session);
 
-            message.setFrom(new InternetAddress(MAIL_FROM));
+            message.setFrom(
+                    new InternetAddress(MAIL_FROM));
+
             message.setRecipients(
                     Message.RecipientType.TO,
                     InternetAddress.parse(recipientEmail)
             );
 
-            message.setSubject(
-                    "Public Management System - Email Verification OTP"
-            );
-
-            String emailBody =
-                    "Dear Citizen,\n\n"
-                    + "Your OTP for Public Management System email verification is:\n\n"
-                    + otp
-                    + "\n\n"
-                    + "This OTP is valid for 10 minutes.\n\n"
-                    + "Please do not share this OTP with anyone.\n\n"
-                    + "Regards,\n"
-                    + "Public Management System";
+            message.setSubject(subject);
 
             message.setText(emailBody);
 
@@ -73,7 +99,9 @@ public class EmailService {
             return true;
 
         } catch (Exception e) {
+
             e.printStackTrace();
+
             return false;
         }
     }
