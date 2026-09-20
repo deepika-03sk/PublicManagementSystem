@@ -704,137 +704,63 @@ Connection con = null;
 
 
 
-                <!-- STATUS -->
 
-                <div class="field">
 
-                    <label for="status">
-
-                        🔄 Complaint Status
-
-                    </label>
-
-
-
-
-
-
-
-
-
-                    <select
-
-                        id="status"
-
-                        name="status"
-
-                        required>
-
-
-
-
-
-
-
-
-
-                        <option
-
-                            value="PENDING"
-
-                            <%= "PENDING".equals(
-
-                                rs.getString("status")
-
-                            ) ? "selected" : "" %>>
-
-                            🟡 Pending
-
-                        </option>
-
-
-
-
-
-
-
-
-
-                        <option
-
-                            value="IN_PROGRESS"
-
-                            <%= "IN_PROGRESS".equals(
-
-                                rs.getString("status")
-
-                            ) ? "selected" : "" %>>
-
-                            🔵 In Progress
-
-                        </option>
-
-
-
-
-
-
-
-
-
-                        <option
-
-                            value="RESOLVED"
-
-                            <%= "RESOLVED".equals(
-
-                                rs.getString("status")
-
-                            ) ? "selected" : "" %>>
-
-                            🟢 Resolved
-
-                        </option>
-
-
-
-
-
-
-
-
-
-                        <option
-
-                            value="REJECTED"
-
-                            <%= "REJECTED".equals(
-
-                                rs.getString("status")
-
-                            ) ? "selected" : "" %>>
-
-                            🔴 Rejected
-
-                        </option>
-
-
-
-
-
-
-
-
-
-                    </select>
-
-                </div>
-
-
-
-
-
-
+<!-- STATUS / VERIFICATION -->
+<div class="field">
+
+    <label for="status">
+        🔄 Complaint Status / Verification
+    </label>
+
+    <select
+        id="status"
+        name="status"
+        required>
+
+        <option
+            value="UNDER_VERIFICATION"
+            <%= "UNDER_VERIFICATION".equals(
+                rs.getString("status")
+            ) ? "selected" : "" %>>
+            🔍 Under Verification
+        </option>
+
+        <option
+            value="VERIFIED"
+            <%= "VERIFIED".equals(
+                rs.getString("status")
+            ) ? "selected" : "" %>>
+            ✅ Verified
+        </option>
+
+        <option
+            value="INVALID"
+            <%= "INVALID".equals(
+                rs.getString("status")
+            ) ? "selected" : "" %>>
+            ❌ Invalid
+        </option>
+
+        <option
+            value="IN_PROGRESS"
+            <%= "IN_PROGRESS".equals(
+                rs.getString("status")
+            ) ? "selected" : "" %>>
+            🔵 In Progress
+        </option>
+
+        <option
+            value="RESOLVED"
+            <%= "RESOLVED".equals(
+                rs.getString("status")
+            ) ? "selected" : "" %>>
+            🟢 Resolved
+        </option>
+
+    </select>
+
+</div>
 
 
 
