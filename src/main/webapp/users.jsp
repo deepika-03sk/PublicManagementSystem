@@ -3,19 +3,17 @@
 <%@ page import="com.publicmanagement.DBConnection" %>
 
 <%
-    // Protect the page: user must be logged in
     if (session.getAttribute("userId") == null) {
         response.sendRedirect("index.jsp");
         return;
     }
 
-    // Get logged-in user's role
     String currentRole = (String) session.getAttribute("role");
+    boolean isAdmin = "ADMIN".equals(currentRole);
 %>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,38 +23,17 @@
 
 <body>
 
-<!-- =========================
-     NAVIGATION BAR
-     ========================= -->
-
 <nav class="navbar">
-
     <div class="logo">
         🏛️ Public Management System
     </div>
 
     <div class="nav-links">
-
-        <a href="dashboard.jsp">
-            🏠 Dashboard
-        </a>
-
-        <a href="users.jsp">
-            👥 Users
-        </a>
-
-        <a href="logout">
-            🚪 Logout
-        </a>
-
+        <a href="dashboard.jsp">🏠 Dashboard</a>
+        <a href="users.jsp">👥 Users</a>
+        <a href="logout">🚪 Logout</a>
     </div>
-
 </nav>
-
-
-<!-- =========================
-     MAIN CONTENT
-     ========================= -->
 
 <div class="container">
 
@@ -74,34 +51,28 @@
         ← Back to Dashboard
     </a>
 
-
-    <!-- =========================
-         USER TABLE
-         ========================= -->
-
     <div class="table-container">
 
         <table>
 
             <thead>
-
                 <tr>
-
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Phone</th>
-                    <th>Role</th>
 
-                    <% if ("ADMIN".equals(currentRole)) { %>
-                        <th>Action</th>
+                    <% if (isAdmin) { %>
+                        <th>Phone</th>
                     <% } %>
 
+                    <th>Role</th>
+
+                    <% if (isAdmin) { %>
+                        <th>Action</th>
+                    <% } %>
                 </tr>
-
             </thead>
-
 
             <tbody>
 
@@ -111,16 +82,10 @@
     ResultSet rs = null;
 
     try {
+        con = DBConnection.getConnection();
 
-        // Use the central database connection
-        out.println("<p style='color:blue;font-weight:bold;'>DATABASE TEST STARTED</p>");
-con = DBConnection.getConnection();
-out.println("<p style='color:green;font-weight:bold;'>DATABASE CONNECTION SUCCESS</p>");
-
-        // Create SQL statement
         st = con.createStatement();
 
-        // Get users
         rs = st.executeQuery(
             "SELECT id, first_name, last_name, email, phone, role " +
             "FROM users ORDER BY id ASC"
@@ -149,19 +114,18 @@ out.println("<p style='color:green;font-weight:bold;'>DATABASE CONNECTION SUCCES
                         <%= rs.getString("email") %>
                     </td>
 
-                    <td>
-                        <%= rs.getString("phone") %>
-                    </td>
+                    <% if (isAdmin) { %>
+                        <td>
+                            <%= rs.getString("phone") %>
+                        </td>
+                    <% } %>
 
                     <td>
                         <%= rs.getString("role") %>
                     </td>
 
-
-                    <% if ("ADMIN".equals(currentRole)) { %>
-
+                    <% if (isAdmin) { %>
                     <td>
-
                         <a
                             class="action-edit"
                             href="edit-user.jsp?id=<%= rs.getInt("id") %>">
@@ -176,9 +140,7 @@ out.println("<p style='color:green;font-weight:bold;'>DATABASE CONNECTION SUCCES
                             onclick="return confirm('Are you sure you want to delete this user?');">
                             🗑️ Delete
                         </a>
-
                     </td>
-
                     <% } %>
 
                 </tr>
@@ -186,34 +148,31 @@ out.println("<p style='color:green;font-weight:bold;'>DATABASE CONNECTION SUCCES
 <%
             displayNumber++;
         }
-        rs.close();
-        st.close();
-        con.close();
 
     } catch (Exception e) {
-    	%>
-    	    <tr>
-    	        <td colspan="<%= "ADMIN".equals(currentRole) ? "7" : "6" %>"
-    	            style="color:#dc2626; font-weight:bold; white-space:pre-wrap;">
+%>
 
-    	            ⚠️ Database Error:<br><br>
+                <tr>
+                    <td
+                        colspan="<%= isAdmin ? "7" : "5" %>"
+                        style="color:#dc2626; font-weight:bold; white-space:pre-wrap;">
 
-    	            <%= e.getClass().getName() %><br>
-    	            <%= e.getMessage() %><br><br>
+                        ⚠️ Database Error:<br><br>
 
-    	            <% if (e.getCause() != null) { %>
-    	                CAUSE:<br>
-    	                <%= e.getCause().getClass().getName() %><br>
-    	                <%= e.getCause().getMessage() %>
-    	            <% } %>
+                        <%= e.getClass().getName() %><br>
+                        <%= e.getMessage() %><br><br>
 
-    	        </td>
-    	    </tr>
-    	<%
+                        <% if (e.getCause() != null) { %>
+                            CAUSE:<br>
+                            <%= e.getCause().getClass().getName() %><br>
+                            <%= e.getCause().getMessage() %>
+                        <% } %>
+
+                    </td>
+                </tr>
+
+<%
     } finally {
-
-        // Close database resources safely
-
         try {
             if (rs != null) rs.close();
         } catch (Exception ignored) {}
@@ -229,32 +188,20 @@ out.println("<p style='color:green;font-weight:bold;'>DATABASE CONNECTION SUCCES
 %>
 
             </tbody>
-
         </table>
 
     </div>
 
-
-    <!-- =========================
-         ADMIN ADD USER BUTTON
-         ========================= -->
-
-    <% if ("ADMIN".equals(currentRole)) { %>
-
+    <% if (isAdmin) { %>
         <br>
-
         <a href="add-user.jsp">
-
             <button type="button">
                 ➕ Add New User
             </button>
-
         </a>
-
     <% } %>
 
 </div>
 
 </body>
-
 </html>
