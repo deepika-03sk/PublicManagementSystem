@@ -391,7 +391,8 @@
         type="file"
         id="attachment"
         name="attachment"
-        accept="image/*">
+        accept="image/*"
+        required>
 
     <small style="
         display:block;
