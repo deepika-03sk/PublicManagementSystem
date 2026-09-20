@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -48,6 +49,13 @@ public class ComplaintServlet extends HttpServlet {
         // GET LOGGED-IN USER
         int userId =
                 (Integer) session.getAttribute("userId");
+
+        String citizenName =
+                (String) session.getAttribute("firstName");
+
+        if (citizenName == null || citizenName.trim().isEmpty()) {
+            citizenName = "A citizen";
+        }
 
         // GET COMPLAINT DATA
         String title =
@@ -106,6 +114,7 @@ public class ComplaintServlet extends HttpServlet {
                     Paths.get(uploadPath);
 
             if (!Files.exists(uploadDirectory)) {
+
                 Files.createDirectories(
                         uploadDirectory);
             }
@@ -225,6 +234,127 @@ public class ComplaintServlet extends HttpServlet {
                 historyPs.executeUpdate();
 
                 historyPs.close();
+            }
+
+            // ==========================================
+            // NOTIFY ALL ADMINS - IN-APP
+            // ==========================================
+
+            if (complaintId > 0) {
+
+                String notificationSql =
+                        "INSERT INTO notifications " +
+                        "(user_id, complaint_id, message) " +
+                        "SELECT id, ?, ? " +
+                        "FROM users " +
+                        "WHERE role = 'ADMIN'";
+
+                PreparedStatement notificationPs =
+                        con.prepareStatement(
+                                notificationSql);
+
+                String notificationMessage =
+                        "🔔 New Complaint Raised: " +
+                        "Complaint #" + complaintId +
+                        " was submitted by " +
+                        citizenName +
+                        ". Category: " +
+                        category +
+                        ". Location: " +
+                        location +
+                        ". Status: UNDER VERIFICATION.";
+
+                notificationPs.setInt(
+                        1,
+                        complaintId);
+
+                notificationPs.setString(
+                        2,
+                        notificationMessage);
+
+                notificationPs.executeUpdate();
+
+                notificationPs.close();
+            }
+
+            // ==========================================
+            // EMAIL ALL ADMINS
+            // ==========================================
+
+            if (complaintId > 0) {
+
+                String adminEmailSql =
+                        "SELECT email, first_name " +
+                        "FROM users " +
+                        "WHERE role = 'ADMIN' " +
+                        "AND email IS NOT NULL " +
+                        "AND email <> ''";
+
+                PreparedStatement adminEmailPs =
+                        con.prepareStatement(
+                                adminEmailSql);
+
+                ResultSet adminEmailRs =
+                        adminEmailPs.executeQuery();
+
+                while (adminEmailRs.next()) {
+
+                    String adminEmail =
+                            adminEmailRs.getString("email");
+
+                    String adminFirstName =
+                            adminEmailRs.getString("first_name");
+
+                    if (adminFirstName == null ||
+                        adminFirstName.trim().isEmpty()) {
+
+                        adminFirstName = "Administrator";
+                    }
+
+                    String emailSubject =
+                            "🔔 New Complaint Raised - Complaint #"
+                            + complaintId;
+
+                    String emailBody =
+                            "Dear " + adminFirstName + ",\n\n" +
+
+                            "A new complaint has been submitted " +
+                            "by a citizen in the Public Management System.\n\n" +
+
+                            "Complaint ID: #" + complaintId + "\n" +
+                            "Citizen: " + citizenName + "\n" +
+                            "Title: " + title + "\n" +
+                            "Category: " + category + "\n" +
+                            "Location: " + location + "\n" +
+                            "Priority: " + priority + "\n" +
+                            "Status: UNDER VERIFICATION\n\n" +
+
+                            "The complaint is waiting for administrator " +
+                            "verification and further action.\n\n" +
+
+                            "Please log in to the Public Management System " +
+                            "to review the complaint.\n\n" +
+
+                            "Regards,\n" +
+                            "Public Management System";
+
+                    // IMPORTANT:
+                    // Email failure should NOT make complaint submission fail.
+                    try {
+
+                        EmailService.sendEmail(
+                                adminEmail,
+                                emailSubject,
+                                emailBody);
+
+                    } catch (Exception emailError) {
+
+                        emailError.printStackTrace();
+                    }
+                }
+
+                adminEmailRs.close();
+                adminEmailPs.close();
             }
 
             // CLOSE CONNECTION
