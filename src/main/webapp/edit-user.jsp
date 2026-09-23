@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.publicmanagement.DBConnection" %>
 
 <%
     // ============================
@@ -10,7 +11,6 @@
         response.sendRedirect("index.jsp");
         return;
     }
-
 
     // ============================
     // ADMIN PROTECTION
@@ -25,9 +25,7 @@
     }
 %>
 
-
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -41,176 +39,102 @@
 
     <link rel="stylesheet" href="style.css">
 
-
     <style>
 
         .edit-user-wrapper {
-
             max-width: 700px;
-
             margin: 40px auto;
-
         }
 
-
         .edit-user-card {
-
             background: white;
-
             padding: 40px;
-
             border-radius: 22px;
-
             box-shadow:
                 0 12px 35px
                 rgba(15, 23, 42, 0.10);
-
         }
-
 
         .form-header {
-
             text-align: center;
-
             margin-bottom: 30px;
-
         }
-
 
         .form-header .icon {
-
             font-size: 55px;
-
             margin-bottom: 10px;
-
         }
-
 
         .form-header h1 {
-
             background: none;
-
             padding: 0;
-
             color: #0f172a;
-
             margin-bottom: 8px;
-
         }
-
 
         .form-header p {
-
             color: #64748b;
-
         }
-
 
         .form-row {
-
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-
         }
-
 
         .field {
-
             margin-bottom: 20px;
-
         }
-
 
         .field label {
-
             display: block;
-
             font-weight: 600;
-
             color: #334155;
-
             margin-bottom: 8px;
-
         }
-
 
         .field input,
         .field select {
-
             width: 100%;
-
+            box-sizing: border-box;
         }
-
 
         .form-actions {
-
             display: flex;
-
             gap: 12px;
-
             margin-top: 10px;
-
         }
-
 
         .form-actions button {
-
             flex: 1;
-
         }
-
 
         .cancel-button {
-
             display: inline-flex;
-
             align-items: center;
-
             justify-content: center;
-
             padding: 12px 22px;
-
             border-radius: 9px;
-
             background: #e2e8f0;
-
             color: #334155;
-
             text-decoration: none;
-
             font-weight: 600;
-
         }
-
 
         .cancel-button:hover {
-
             background: #cbd5e1;
-
             color: #0f172a;
-
         }
-
 
         @media (max-width: 650px) {
 
             .form-row {
-
                 grid-template-columns: 1fr;
-
                 gap: 0;
-
             }
 
-
             .edit-user-card {
-
                 padding: 25px;
-
             }
 
         }
@@ -219,9 +143,7 @@
 
 </head>
 
-
 <body>
-
 
 <!-- ============================
      NAVIGATION
@@ -229,13 +151,9 @@
 
 <nav class="navbar">
 
-
     <div class="logo">
-
         🏛️ Public Management System
-
     </div>
-
 
     <div class="nav-links">
 
@@ -253,9 +171,7 @@
 
     </div>
 
-
 </nav>
-
 
 
 <!-- ============================
@@ -264,12 +180,9 @@
 
 <div class="container">
 
-
     <div class="edit-user-wrapper">
 
-
         <div class="edit-user-card">
-
 
             <!-- HEADER -->
 
@@ -291,25 +204,18 @@
             </div>
 
 
-
 <%
-
     // ============================
     // GET USER ID
     // ============================
 
-    String id =
-        request.getParameter("id");
+    String id = request.getParameter("id");
 
-
-Connection con = DriverManager.getConnection(
-	    System.getenv("MYSQL_URL").replaceFirst("^mysql://", "jdbc:mysql://"),
-	    System.getenv("MYSQLUSER"),
-	    System.getenv("MYSQLPASSWORD")
-	);
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
 
     try {
-
 
         // ============================
         // CONNECT TO DATABASE
@@ -319,33 +225,26 @@ Connection con = DriverManager.getConnection(
             "com.mysql.cj.jdbc.Driver"
         );
 
-
-        Connection con = DBConnection.getConnection();
+        con = DBConnection.getConnection();
 
         // ============================
         // GET USER
         // ============================
 
-        PreparedStatement ps =
-            con.prepareStatement(
-                "SELECT * FROM users WHERE id = ?"
-            );
-
+        ps = con.prepareStatement(
+            "SELECT * FROM users WHERE id = ?"
+        );
 
         ps.setInt(
             1,
             Integer.parseInt(id)
         );
 
-
-        ResultSet rs =
-            ps.executeQuery();
-
+        rs = ps.executeQuery();
 
         if (rs.next()) {
 
 %>
-
 
             <!-- ============================
                  EDIT FORM
@@ -355,7 +254,6 @@ Connection con = DriverManager.getConnection(
                 action="updateUser"
                 method="post">
 
-
                 <!-- Hidden ID -->
 
                 <input
@@ -364,20 +262,15 @@ Connection con = DriverManager.getConnection(
                     value="<%= rs.getInt("id") %>">
 
 
-
                 <!-- FIRST + LAST NAME -->
 
                 <div class="form-row">
 
-
                     <div class="field">
 
                         <label for="first_name">
-
                             👤 First Name
-
                         </label>
-
 
                         <input
                             type="text"
@@ -389,15 +282,11 @@ Connection con = DriverManager.getConnection(
                     </div>
 
 
-
                     <div class="field">
 
                         <label for="last_name">
-
                             👤 Last Name
-
                         </label>
-
 
                         <input
                             type="text"
@@ -408,9 +297,7 @@ Connection con = DriverManager.getConnection(
 
                     </div>
 
-
                 </div>
-
 
 
                 <!-- EMAIL -->
@@ -418,11 +305,8 @@ Connection con = DriverManager.getConnection(
                 <div class="field">
 
                     <label for="email">
-
                         📧 Email Address
-
                     </label>
-
 
                     <input
                         type="email"
@@ -434,17 +318,13 @@ Connection con = DriverManager.getConnection(
                 </div>
 
 
-
                 <!-- PHONE -->
 
                 <div class="field">
 
                     <label for="phone">
-
                         📱 Phone Number
-
                     </label>
-
 
                     <input
                         type="text"
@@ -456,23 +336,18 @@ Connection con = DriverManager.getConnection(
                 </div>
 
 
-
                 <!-- ROLE -->
 
                 <div class="field">
 
                     <label for="role">
-
                         🛡️ User Role
-
                     </label>
-
 
                     <select
                         id="role"
                         name="role"
                         required>
-
 
                         <option
                             value="CITIZEN"
@@ -484,7 +359,6 @@ Connection con = DriverManager.getConnection(
 
                         </option>
 
-
                         <option
                             value="ADMIN"
                             <%= "ADMIN".equals(
@@ -495,17 +369,14 @@ Connection con = DriverManager.getConnection(
 
                         </option>
 
-
                     </select>
 
                 </div>
 
 
-
                 <!-- BUTTONS -->
 
                 <div class="form-actions">
-
 
                     <button
                         type="submit">
@@ -513,7 +384,6 @@ Connection con = DriverManager.getConnection(
                         💾 Update User
 
                     </button>
-
 
                     <a
                         href="users.jsp"
@@ -523,19 +393,14 @@ Connection con = DriverManager.getConnection(
 
                     </a>
 
-
                 </div>
-
 
             </form>
 
 
 <%
-
         } else {
-
 %>
-
 
             <div class="card">
 
@@ -550,27 +415,11 @@ Connection con = DriverManager.getConnection(
 
             </div>
 
-
 <%
-
         }
 
-
-        // ============================
-        // CLOSE DATABASE
-        // ============================
-
-        rs.close();
-
-        ps.close();
-
-        con.close();
-
-
     } catch (Exception e) {
-
 %>
-
 
         <div class="card">
 
@@ -584,20 +433,37 @@ Connection con = DriverManager.getConnection(
 
         </div>
 
-
 <%
+    } finally {
 
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+        } catch (Exception ignored) {
+        }
+
+        try {
+            if (ps != null) {
+                ps.close();
+            }
+        } catch (Exception ignored) {
+        }
+
+        try {
+            if (con != null) {
+                con.close();
+            }
+        } catch (Exception ignored) {
+        }
     }
-
 %>
-
 
         </div>
 
     </div>
 
 </div>
-
 
 </body>
 
